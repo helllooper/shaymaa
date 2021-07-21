@@ -1,0 +1,110 @@
+
+body {
+    text-align: right;
+    font-family: 'Cairo', sans-serif;
+}
+
+.nav-link {
+    transition: all 500ms
+}
+
+a {
+    color: white !important;
+    transition: all 500ms
+}
+
+a:hover {
+    color:#E0C69C !important;
+}
+
+.navbar-toggler {
+    color: white !important;
+    text-align: right;
+}
+
+.navbar-toggler:focus {
+   box-shadow: none;
+   color:  #E0C69C;
+}
+
+#pageTitle:hover {
+  color: white !important;
+}
+
+
+.mainPic {
+    object-fit: cover;
+    object-position:center 25%;
+    height:100vh;
+    filter: grayscale(100%);
+}
+
+
+@media only screen and (max-width: 726px) {
+    .mainPic {
+        object-fit: contain;
+        object-position:top;
+        height:auto;
+    }
+
+    .picContainer {
+        width: 100%;
+        height:auto;
+    }
+  }
+
+.picContainer {
+    z-index: 1;
+    top:136px;
+}
+
+#firstNav {
+    position: fixed;
+	z-index: 2;
+	height: 80px;
+}
+
+#secondNav {
+    z-index: 2;
+    top: 80px;
+}
+
+.portion1 {
+    top:136px;
+}
+
+.element img{
+    /* object-fit: cover; */
+    position: relative;
+}
+
+.dummy {
+    margin: 100%;
+  }
+  
+  .element {
+    border:30px solid #A0D38C;
+    background-size: cover;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: red
+  }
+
+  #element1 {
+    background-image: url("./circle3.jpg");
+    background-position: 50% 0%;
+  }
+
+  #element2 {
+    background-image: url("./circle2.jpg");
+    background-position: 50% 0%;
+  }
+
+  #element3 {
+    background-image: url("./circle1.jpg");
+    background-position: 50% 0%;
+  }
