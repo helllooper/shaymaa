@@ -51,31 +51,33 @@ a:hover {
         width: 100%;
         height:auto;
     }
+    #col1, #col2, #col3 {
+        transform: translateX(-100vw);
+     }
   }
 
 .picContainer {
     z-index: 1;
-    top:136px;
+    top:120px
 }
 
 #firstNav {
-    position: fixed;
 	z-index: 2;
 	height: 80px;
 }
 
 #secondNav {
     z-index: 2;
-    top: 80px;
+    top:80px;
 }
 
 .portion1 {
-    top:136px;
+    top:120px;
 }
 
 .element img{
     /* object-fit: cover; */
-    position: relative;
+    /* position: relative; */
 }
 
 .dummy {
@@ -91,7 +93,6 @@ a:hover {
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: red
   }
 
   #element1 {
@@ -108,3 +109,25 @@ a:hover {
     background-image: url("./circle1.jpg");
     background-position: 50% 0%;
   }
+
+ #aim {
+     color: #A0D38C ;
+ }
+
+ .test {
+    max-width: 100%;
+ }
+
+ @media only screen and (min-width: 727px) {
+    #col1 {
+        transform: translateX(-25vw);
+     }
+     #col2 {
+        transform: translateX(-60vw); 
+     }
+     #col3 {
+        transform: translateX(-100vw);
+     }
+ }
+
+ 

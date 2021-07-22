@@ -5,7 +5,7 @@ import { Nav } from 'react-bootstrap';
 const SecondNav = () => {
     return (
         <>
-            <Navbar id="secondNav" bg="primary" expand="md" variant="dark" className="w-100 topBar position-fixed justify-content-end">
+            <Navbar id="secondNav" bg="primary" expand="md" variant="dark" className="w-100 topBar justify-content-end position-absolute">
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="w-100 d-inline-flex justify-content-center">

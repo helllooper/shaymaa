@@ -4,7 +4,7 @@ import { Nav } from 'react-bootstrap';
 const FirstNav = () => {
     return (
         <>
-          <Navbar bg="primary" variant="dark" id="firstNav" className="w-100 topBar position-fixed justify-content-center">
+          <Navbar bg="primary" variant="dark" id="firstNav" className="w-100 topBar justify-content-center position-absolute">
                   <Nav>
                       <Nav.Link id="pageTitle" active>
                           <h1 className='fw-bold'>أطفالنا و السكر</h1>
