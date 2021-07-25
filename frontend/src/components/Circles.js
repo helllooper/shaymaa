@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from 'react'
-import {Container, Row, Col, Card} from "react-bootstrap";
+import {Container, Row, Col, Button} from "react-bootstrap";
 import {gsap} from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -24,9 +24,9 @@ const Circles = () => {
      },[])
     return (
         <Container className="portion1 position-relative" fluid>
-            <h1 className="text-center fw-bold py-5">ما هي <span id="aim">أهدافنا</span></h1>
+            <h1 className="text-center fw-bold py-5">ما هي <span className="aim">أهدافنا</span></h1>
             <Row className="align-items-start">
-                <Col ref={col1} id="col1" lg={3}>
+                <Col ref={col1} id="col1" md={3}>
                     <Row>
                         <div className="col-12 position-relative">
                             <div className="dummy test"></div>
@@ -38,7 +38,7 @@ const Circles = () => {
                         </div>
                     </Row>
                 </Col>
-                <Col ref={col2} id="col2" lg={4}>
+                <Col ref={col2} id="col2" md={4}>
                     <Row>
                         <div className="col-12 position-relative">
                             <div className="dummy"></div>
@@ -50,7 +50,7 @@ const Circles = () => {
                         </div>
                     </Row>                    
                 </Col>
-                <Col ref={col3} id="col3"  lg={5}>
+                <Col ref={col3} id="col3"  md={5}>
                     <Row>
                         <div className="col-12 position-relative">
                             <div className="dummy"></div>
@@ -63,6 +63,9 @@ const Circles = () => {
                     </div>              
                 </Col>
             </Row>
+            <div className="my-5 text-center text-md-start">
+               <Button variant="outilne-secondary fw-bold" size="lg">اقرأ المزيد</Button>
+            </div>
         </Container>
     )
 }

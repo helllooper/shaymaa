@@ -9,7 +9,6 @@ body {
 }
 
 a {
-    color: white !important;
     transition: all 500ms
 }
 
@@ -54,6 +53,14 @@ a:hover {
     #col1, #col2, #col3 {
         transform: translateX(-100vw);
      }
+
+    #background {
+        background-position: center;
+    }
+
+    iframe {
+        height: 300px;
+    }
   }
 
 .picContainer {
@@ -63,21 +70,25 @@ a:hover {
 
 #firstNav {
 	z-index: 2;
-	height: 80px;
+    height: 80px;
+}
+
+#firstNav h1 {
+    color: #97CE82;
 }
 
 #secondNav {
     z-index: 2;
     top:80px;
+    background-color: #97CE82;
+}
+
+#secondNav a {
+    color: white;
 }
 
 .portion1 {
     top:120px;
-}
-
-.element img{
-    /* object-fit: cover; */
-    /* position: relative; */
 }
 
 .dummy {
@@ -110,7 +121,7 @@ a:hover {
     background-position: 50% 0%;
   }
 
- #aim {
+ .aim {
      color: #A0D38C ;
  }
 
@@ -128,6 +139,102 @@ a:hover {
      #col3 {
         transform: translateX(-100vw);
      }
+
+     iframe {
+        height: 400px;
+    }
  }
 
- 
+ .portion1 button, #cards button {
+     width: 200px;
+     padding: 12px 0 12px 0;
+     border-color: #A0D38C;
+     border-radius: 0;
+     font-size: 18px;
+     transition: all 500ms;
+     
+ }
+
+ .portion1 button:hover {
+     background-color: #A0D38C;;
+    color: white;
+ }
+
+ .portion1 button:focus, .portion1 button:active, #cards button:focus, #cards button:active {
+    outline: none;
+    box-shadow: none;
+ }
+
+ #background {
+     background-image: url("./background.jpg");
+     background-attachment: fixed;
+     background-repeat: no-repeat;
+     background-size: cover;
+     height: 300px;
+     background-position: center;
+     top:120px;
+     border-top: 30px solid #A0D38C ;
+     border-bottom: 30px solid #A0D38C ;
+ }
+
+ #cards {
+     top : 120px;
+ }
+
+ #cards p {
+     font-size: 20px;
+ }
+
+ .card-header {
+     background-color: #E96D64;
+     color: white;
+ }
+
+ #cards button:hover {
+     background-color: #E96D64;
+     color: white;
+ }
+
+ #cards button {
+    border-color:  #E96D64;
+ }
+
+ .card {
+     opacity: 0;
+ }
+
+ #video {
+     top:120px;
+     border-bottom: 5px solid #A0D38C;
+ }
+
+ #videoBackground {
+     top:50%;
+     bottom:-25%;
+     left:0;
+     right:0;
+     background-color: #A0D38C;
+ }
+
+ #carousel {
+     top: 120px;
+     background-image:url("./background2.jpg");
+     background-size: cover;
+	 background-position: center;
+	 background-attachment: fixed;
+ }
+
+ .carousel-text {
+    background-color: #A0D38C;
+    padding: 20%;
+    font-size: 20px;
+ }
+
+ #carousel img {
+    width: 200px;
+	height: 150px;
+	border-radius: 100%;
+	display: inline-block;
+	position: relative;
+	top: -75px;
+ }
