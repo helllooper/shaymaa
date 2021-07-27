@@ -61,11 +61,15 @@ a:hover {
     iframe {
         height: 300px;
     }
+
+    #form {
+        height: 71vh;
+    }
   }
 
 .picContainer {
     z-index: 1;
-    top:120px
+    top:136px
 }
 
 #firstNav {
@@ -88,7 +92,7 @@ a:hover {
 }
 
 .portion1 {
-    top:120px;
+    top:136px;
 }
 
 .dummy {
@@ -145,7 +149,7 @@ a:hover {
     }
  }
 
- .portion1 button, #cards button {
+ .portion1 button, #cards button, #form button {
      width: 200px;
      padding: 12px 0 12px 0;
      border-color: #A0D38C;
@@ -155,12 +159,18 @@ a:hover {
      
  }
 
- .portion1 button:hover {
+ .portion1 button:hover, #form button:hover {
      background-color: #A0D38C;;
     color: white;
  }
 
- .portion1 button:focus, .portion1 button:active, #cards button:focus, #cards button:active {
+ .portion1 button:focus,
+ .portion1 button:active,
+ #cards button:focus,
+ #cards button:active,
+ #form button:focus,
+ #form button:active
+  {
     outline: none;
     box-shadow: none;
  }
@@ -172,13 +182,13 @@ a:hover {
      background-size: cover;
      height: 300px;
      background-position: center;
-     top:120px;
+     top:136px;
      border-top: 30px solid #A0D38C ;
      border-bottom: 30px solid #A0D38C ;
  }
 
  #cards {
-     top : 120px;
+     top : 136px;
  }
 
  #cards p {
@@ -204,7 +214,7 @@ a:hover {
  }
 
  #video {
-     top:120px;
+     top:136px;
      border-bottom: 5px solid #A0D38C;
  }
 
@@ -217,11 +227,12 @@ a:hover {
  }
 
  #carousel {
-     top: 120px;
+     top: 136px;
      background-image:url("./background2.jpg");
      background-size: cover;
 	 background-position: center;
-	 background-attachment: fixed;
+     background-attachment: fixed;
+     z-index: 1;
  }
 
  .carousel-text {
@@ -237,4 +248,25 @@ a:hover {
 	display: inline-block;
 	position: relative;
 	top: -75px;
+ }
+
+ #footer {
+     height: 74px;
+     top:136px;
+     width: 100%;
+     background-color: #E96D64;
+     color: white;
+     z-index: 2;
+ }
+
+ #articles {
+     top : 136px;
+ }
+
+ #article {
+    border-bottom: 1px solid #A0D38C;
+ }
+
+ #form {
+     top:136px;
  }

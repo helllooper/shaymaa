@@ -2,25 +2,26 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css"
 import FirstNav from "./components/FirstNav"
 import SecondNav from "./components/SecondNav"
-import MainPic from "./components/MainPic"
-import Circles from "./components/Circles";
-import Background from "./components/Background";
-import Cards from "./components/Cards";
-import Video from "./components/Video";
-import Carousel from "./components/Carousel";
+import Home from "./components/Home"
+import Articles from "./components/Articles"
+import AddArticle from "./components/AddArticle"
+import Login from "./components/Login"
+import Footer from "./components/Footer";
+import { BrowserRouter as Router, Route} from "react-router-dom";
 
 function App() {
   return (
-    <div className="position-relative">
-      <FirstNav />
-      <SecondNav />
-      <MainPic />
-      <Circles />
-      <Background />
-      <Cards />
-      <Video />
-      <Carousel />
-    </div>
+    <Router>
+      <div className="position-relative">
+        <FirstNav />
+        <SecondNav />
+        <Route path="/articles" component={Articles} exact/>
+        <Route path="/addArticle" component={AddArticle} exact/>
+        <Route path="/login" component={Login} exact/>
+        <Route path="/" component={Home} exact/>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 

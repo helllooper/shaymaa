@@ -1,0 +1,32 @@
+{
+  "name": "shaymaa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "server": "nodemon app.js",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/helllooper/shaymaa.git"
+  },
+  "author": "Emad Hassan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/helllooper/shaymaa/issues"
+  },
+  "homepage": "https://github.com/helllooper/shaymaa#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "mongoose": "^5.13.3"
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.0",
+    "nodemon": "^2.0.12"
+  }
+}
