@@ -1,20 +1,28 @@
 import React, { useState, useEffect} from 'react';
 import {Container, Form, Button, Row, Col} from "react-bootstrap";
-
+import { useDispatch} from "react-redux";
+import { login } from "../actions/userActions";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const dispatch = useDispatch()
 
     useEffect(() => {
 
     }
     , [])
 
+    const submitHandler = (e) => {
+        e.preventDefault();
+        dispatch(login(email, password));
+    }
+
     return (
-        <Container id="login" className="postion-relative">
+        <div id="admin" className="d-flex align-items-center">
+        <Container id="login" className="postion-relative text-start">
             <h1>Sign In</h1>
-            <Form>
+            <Form onSubmit={submitHandler}>
                 <Form.Group controlId = "email">
                     <Form.Label>Email Adress</Form.Label>
                     <Form.Control 
@@ -34,9 +42,10 @@ const Login = () => {
                     onChange={(e) => setPassword(e.target.value)}>
                     </Form.Control>
                 </Form.Group>
-                <Button type="submit" variant="primary">Sign In</Button>
+                <Button type="submit" className="my-3" variant="success">Sign In</Button>
             </Form>
         </Container>
+        </div>
     )
 }
 

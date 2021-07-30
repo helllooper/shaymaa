@@ -260,6 +260,7 @@ a:hover {
  }
 
  #articles {
+   min-height: 100vh;
      top : 136px;
  }
 
@@ -269,4 +270,88 @@ a:hover {
 
  #form {
      top:136px;
+ }
+
+ #login {
+    width: 360px;
+	height: auto;
+	position: relative;
+	top: 150px;
+	margin:auto;
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+	padding: 45px;
+	background-color: white;
+ }
+
+ #admin {
+     height: 80vh;
+ }
+
+ /* Loading styles */
+ .lds-heart {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  transform: rotate(45deg);
+  transform-origin: 40px 40px;
+}
+.lds-heart div {
+  top: 32px;
+  left: 32px;
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background: #E96D64;
+  animation: lds-heart 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.lds-heart div:after,
+.lds-heart div:before {
+  content: " ";
+  position: absolute;
+  display: block;
+  width: 32px;
+  height: 32px;
+  background: #E96D64;
+}
+.lds-heart div:before {
+  left: -24px;
+  border-radius: 50% 0 0 50%;
+}
+.lds-heart div:after {
+  top: -24px;
+  border-radius: 50% 50% 0 0;
+}
+@keyframes lds-heart {
+  0% {
+    transform: scale(0.95);
+  }
+  5% {
+    transform: scale(1.1);
+  }
+  39% {
+    transform: scale(0.85);
+  }
+  45% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(0.9);
+  }
+}
+ /* end of loading styles */
+
+ #superAdmin {
+   min-height: 100vh;
+   top: 136px;
+ }
+
+ #loading {
+   top:0;
+   left:0;
+   bottom:0;
+   right:0;
  }

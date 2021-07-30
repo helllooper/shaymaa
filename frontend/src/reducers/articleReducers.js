@@ -10,7 +10,9 @@ export const articleListReducer = (state={}, action) => {
         case constants.ARTICLE_LIST_SUCCESS:
             return {
                 loading:false,
-                articles:action.payload.articles
+                articles:action.payload.articles,
+                page:action.payload.page,
+                pages:action.payload.pages
             }
         case constants.ARTICLE_LIST_FAILED:
             return {

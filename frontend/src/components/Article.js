@@ -1,20 +1,22 @@
 import React from 'react'
-import {Row, Col} from "react-bootstrap"
+import {Nav, Row, Col} from "react-bootstrap"
 
-const Article = () => {
+const Article = (props) => {
     return (
         <Row id="article" className="pt-3">
            <Col xs={12}>
-               <h3>أماكن حقن الأنسولين في الجسم</h3>
+           <Nav.Item>
+                <h3><Nav.Link className="aim px-0" href="#">{props.title}</Nav.Link></h3>
+           </Nav.Item>
            </Col>
            <Col xs={12}>
-               <p>تستخدم حقن الانسولين لخفض مستويات الجلوكوز في الدم لدى بعض مرضى السكري وهناك العديد من الاماكن لحقن</p>
+               <p>{props.brief}</p>
            </Col>
            <Col xs={12}>
-                <p>شيماء العدوي</p>
+                <p>{props.author}</p>
            </Col>
            <Col xs={12}>
-                <p>26 July 2021</p>
+                <p>{props.date.substring(0, 10)}</p>
            </Col>
         </Row>
     )

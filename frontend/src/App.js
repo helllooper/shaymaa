@@ -7,6 +7,8 @@ import Articles from "./components/Articles"
 import AddArticle from "./components/AddArticle"
 import Login from "./components/Login"
 import Footer from "./components/Footer";
+import Signup from "./components/Signup"
+import SuperAdmin from "./components/SuperAdmin";
 import { BrowserRouter as Router, Route} from "react-router-dom";
 
 function App() {
@@ -16,8 +18,11 @@ function App() {
         <FirstNav />
         <SecondNav />
         <Route path="/articles" component={Articles} exact/>
+        <Route path="/articles/:pageNumber" component={Articles} exact/>
         <Route path="/addArticle" component={AddArticle} exact/>
         <Route path="/login" component={Login} exact/>
+        <Route path ="/signup" component={Signup} />
+        <Route path="/superAdmin" component={SuperAdmin} />
         <Route path="/" component={Home} exact/>
         <Footer />
       </div>
