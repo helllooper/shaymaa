@@ -47,3 +47,72 @@ export const articleCreateReducer = (state={}, action) => {
             return state;
     }
 } 
+
+export const articleDetailsReducer = (state={}, action) => {
+      switch(action.type){
+          case constants.ARTICLE_DETAILS_REQUEST:
+              return {
+                  loading:true,
+                  ...state
+              }
+          case constants.ARTICLE_DETAILS_SUCCESS:
+              return {
+                  loading:false,
+                  article:action.payload
+              }
+          case constants.ARTICLE_DETAILS_FAILED:
+              return {
+                  loading:false,
+                  error:action.payload
+              }
+          case constants.ARTICLE_DETAILS_RESET:
+              return {}
+          default:
+              return state;
+      }
+  }
+
+  export const latestArticlesReducer = (state=null, action) => {
+    switch(action.type){
+        case constants.LATEST_ARTICLES_REQUEST:
+            return {
+                loading:true,
+                ...state
+            }
+        case constants.LATEST_ARTICLES_SUCCESS:
+            return {
+                loading:false,
+                articles:action.payload
+            }
+        case constants.LATEST_ARTICLES_FAIL:
+            return {
+                loading:false,
+                error:action.payload
+            }
+        case constants.LATEST_ARTICLES_RESET:
+            return null
+        default:
+            return state;
+    }
+}
+
+export const articleDeleteReducer = (state={}, action) => {
+    switch(action.type){
+        case constants.ARTICLE_DELETE_REQUEST:
+            return {
+                loading:true
+              }
+        case constants.ARTICLE_DELETE_SUCCESS:
+            return {
+                loading:false,
+                success:true
+              }
+        case constants.ARTICLE_DELETE_FAILED:
+            return {
+                loading:false,
+                error:action.payload
+            }
+        default:
+            return state;
+    }
+}

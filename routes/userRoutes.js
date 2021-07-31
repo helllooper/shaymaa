@@ -2,7 +2,7 @@ const express = require("express");
 const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
 const generateToken = require("../utils/generateToken")
-
+const { isAdmin } = require("../middlewares/authMiddleware")
 const router = express.Router();
 
 router.post("/login", asyncHandler(async (req, res) => {
@@ -10,6 +10,8 @@ router.post("/login", asyncHandler(async (req, res) => {
     const user = await User.findOne({email});
     if (user && await user.matchPassword(password)){
         res.json({
+            name:user.name,
+            isAdmin:user.isAdmin,
             token:generateToken(user._id)
         })
     } else {
@@ -45,7 +47,7 @@ router.post("/signup", asyncHandler(async (req, res) => {
   }
 }))
 
-router.get("/" , asyncHandler(async (req, res) => {
+router.get("/" ,isAdmin , asyncHandler(async (req, res) => {
         const users = await User.find({},"name");
         res.json(users);  
 }))

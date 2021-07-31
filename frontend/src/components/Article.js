@@ -1,13 +1,18 @@
 import React from 'react'
-import {Nav, Row, Col} from "react-bootstrap"
+import {Row, Col, Button} from "react-bootstrap"
+import { LinkContainer } from "react-router-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+
 
 const Article = (props) => {
+    const dispatch = useDispatch();
+    const userLogin = useSelector(state => state.userLogin);
     return (
         <Row id="article" className="pt-3">
            <Col xs={12}>
-           <Nav.Item>
-                <h3><Nav.Link className="aim px-0" href="#">{props.title}</Nav.Link></h3>
-           </Nav.Item>
+           <LinkContainer to={`/article/${props.id}`}>
+                <h3 className="fw-bold px-0 py-3">{props.title}</h3>
+           </LinkContainer>
            </Col>
            <Col xs={12}>
                <p>{props.brief}</p>
@@ -18,6 +23,12 @@ const Article = (props) => {
            <Col xs={12}>
                 <p>{props.date.substring(0, 10)}</p>
            </Col>
+           { userLogin.userInfo && userLogin.userInfo.isAdmin ? (
+               <div className="py-2">
+                <Button id="edit" className="mx-2" variant="success">Edit</Button>
+                <Button id="delete" className="mx-2" variant="danger">Delete</Button>
+               </div>
+           ):null}
         </Row>
     )
 }

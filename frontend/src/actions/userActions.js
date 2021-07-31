@@ -25,7 +25,11 @@ export const logout = () => dispatch => {
     dispatch({
         type:constants.USER_LOGOUT
     })
+    dispatch({
+        type:constants.USER_LIST_RESET
+    })
 }
+
 
 export const register = (name, email, password) => async (dispatch) => {
     try {

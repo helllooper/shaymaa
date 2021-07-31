@@ -1,19 +1,16 @@
 import React, { useState, useEffect} from 'react';
 import {Container, Row, Col, Form, Button} from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {createArticle} from "../actions/articleActions";
+import { Redirect } from "react-router-dom"
 
-const AddArticle = () => {
+const AddArticle = ({location, history}) => {
     const [title, setTitle] = useState("");
     const [brief, setBrief] = useState("");
     const [text, setText] = useState("");
     const [author, setAuthor] = useState("");
     const dispatch = useDispatch();
-
-
-    useEffect(() => {
-
-    },[])
+    const userLogin = useSelector(state => state.userLogin)
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -23,10 +20,12 @@ const AddArticle = () => {
             text,
             author
         }))
+        history.push("/articles")
     }
 
     return (
         <Container id="form" className="position-relative py-5">
+            {!userLogin.userInfo && <Redirect to="/"/>}
             <Row className="justify-content-center">
                 <Col xs={8} md={6}>
                     <Form onSubmit={submitHandler}>

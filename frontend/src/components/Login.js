@@ -3,19 +3,15 @@ import {Container, Form, Button, Row, Col} from "react-bootstrap";
 import { useDispatch} from "react-redux";
 import { login } from "../actions/userActions";
 
-const Login = () => {
+const Login = ({history, match}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const dispatch = useDispatch()
 
-    useEffect(() => {
-
-    }
-    , [])
-
     const submitHandler = (e) => {
         e.preventDefault();
         dispatch(login(email, password));
+        history.push("/");
     }
 
     return (

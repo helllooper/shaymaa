@@ -8,19 +8,11 @@ export const userLoginReducer = (state = {}, action) => {
             return {loading:false, userInfo:action.payload}
         case constants.USER_LOGIN_FAIL:
             return {loading:false, error:action.payload}
-        default:
-            return state
-    }
-}
-
-export const logoutReducer = (state, action) => {
-    switch(action.type){
         case constants.USER_LOGOUT :
             return {}
         default:
             return state
     }
-    
 }
 
 export const userListReducer = (state={}, action) => {

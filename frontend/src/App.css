@@ -1,9 +1,10 @@
-
 body {
     text-align: right;
     font-family: 'Cairo', sans-serif;
 }
-
+a {
+  text-decoration: none !important;
+}
 .nav-link {
     transition: all 500ms
 }
@@ -126,7 +127,7 @@ a:hover {
   }
 
  .aim {
-     color: #A0D38C ;
+     color: #97CE82 ;
  }
 
  .test {
@@ -265,7 +266,12 @@ a:hover {
  }
 
  #article {
-    border-bottom: 1px solid #A0D38C;
+    border-bottom: 2px solid #A0D38C;
+ }
+
+ #article h3 {
+  cursor: pointer;
+  color: #E96D64;
  }
 
  #form {
@@ -354,4 +360,29 @@ a:hover {
    left:0;
    bottom:0;
    right:0;
+ }
+
+ #articleDetails {
+   top:136px;
+   min-height: 100vh;
+ }
+
+ #articleDetails h2 {
+  color: #E96D64;
+ }
+
+ #articleDetails h5 {
+   cursor: pointer;
+   color: #E96D64;
+   border-bottom: 1px solid #A0D38C;
+ }
+
+ #edit {
+   background-color: #97CE82;
+   border: none;
+ }
+
+ #delete {
+  background-color: #E96D64;
+  border: none;
  }
