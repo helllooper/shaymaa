@@ -40,3 +40,27 @@ export const userListReducer = (state={}, action) => {
             return state;
     }
 }
+
+export const getUserReducer = (state={user:{}}, action) => {
+    switch(action.type){
+        case constants.USER_GET_REQUEST:
+            return{
+                loading:true,
+                user:{}
+            }
+        case constants.USER_GET_SUCCESS:
+            return {
+                loading:false,
+                user:action.payload
+            }
+        case constants.USER_GET_FAIL:
+            return{
+                loading:false,
+                error:action.payload
+            }
+        case constants.USER_GET_RESET:
+            return {}
+        default:
+            return state;
+    }
+}

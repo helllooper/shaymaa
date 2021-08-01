@@ -2,6 +2,7 @@ const express = require("express");
 const asyncHandler = require("express-async-handler");
 const Article = require("../models/articlesModel");
 const { isAdmin, protect } = require("../middlewares/authMiddleware")
+const User = require("../models/userModel");
 
 const router = express.Router();
 
@@ -15,6 +16,7 @@ router.get("/", asyncHandler(async (req, res) => {
 }))
 
 router.post("/",protect ,asyncHandler(async(req, res) => {
+    const user = await User.findById(req.user._id);
     const {title, brief, text, author} = req.body
     const article = new Article({
        title,
@@ -23,6 +25,8 @@ router.post("/",protect ,asyncHandler(async(req, res) => {
        author
     })
     const createdArticle = await article.save();
+    user.articles.push(createdArticle._id);
+    await user.save();
     res.json(createdArticle);
 }))
 

@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { NavLink } from "react-router-dom";
 import { logout } from "../actions/userActions"
 
-const SecondNav = () => {
+const SecondNav = ({history, match}) => {
+    console.log(history);
     const dispatch = useDispatch()
     const userLogin = useSelector(state => state.userLogin);
     const logoutHandler = () => {
@@ -26,6 +27,7 @@ const SecondNav = () => {
                             <Nav.Link className="px-4 order-md-2"><NavLink to="/addArticle">إضافة مقالة</NavLink></Nav.Link>
                             <Nav.Link className="px-4 order-md-1"><NavLink to="#">إضافة فيديو</NavLink></Nav.Link>
                             <Nav.Link className="px-4 order-md-0"><NavLink to="#" onClick ={logoutHandler}> خروج </NavLink></Nav.Link>
+                            {userLogin.userInfo.isAdmin && <Nav.Link className="px-4 order-md-0"><NavLink to="/superadmin">SuperAdmin</NavLink></Nav.Link>}
                             </Nav>
                         ):null}
                     </Nav>

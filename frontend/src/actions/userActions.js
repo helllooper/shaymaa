@@ -50,12 +50,18 @@ export const register = (name, email, password) => async (dispatch) => {
     }
 }
 
-export const listUsers = () => async(dispatch) => {
+export const listUsers = () => async(dispatch, getState) => {
     try{
         dispatch({
             type:constants.USER_LIST_REQUEST
         })
-        const {data} = await axios.get("/api/users")
+        const {userLogin:{userInfo}} = getState();
+        const config = {
+            headers:{
+                Authorization:`Bearer ${userInfo.token}`
+            }
+        }
+        const {data} = await axios.get("/api/users", config)
         dispatch({
             type:constants.USER_LIST_SUCCESS,
             payload:data
@@ -63,6 +69,30 @@ export const listUsers = () => async(dispatch) => {
     }catch(error){
         dispatch({
             type:constants.USER_LIST_FAIL,
+            payload:error.response && error.response.data.message ? error.response.data.message:error.message
+        })
+    }
+}
+
+export const getUser = (id) => async(dispatch, getState) => {
+    try{
+        dispatch({
+            type:constants.USER_GET_REQUEST
+        })
+        const {userLogin:{userInfo}} = getState();
+        const config = {
+            headers:{
+                Authorization:`Bearer ${userInfo.token}`
+            }
+        }
+        const {data} = await axios.get(`/api/users/admin/${id}`, config)
+        dispatch({
+            type:constants.USER_GET_SUCCESS,
+            payload:data
+        })
+    }catch(error){
+        dispatch({
+            type:constants.USER_GET_FAIL,
             payload:error.response && error.response.data.message ? error.response.data.message:error.message
         })
     }

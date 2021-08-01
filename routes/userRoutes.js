@@ -47,6 +47,16 @@ router.post("/signup", asyncHandler(async (req, res) => {
   }
 }))
 
+router.get("/admin/:id", isAdmin, asyncHandler(async(req, res) => {
+    const user = await User.findById(req.params.id).populate("articles", "title brief date author");
+    if(user){
+        res.status(201).json(user)
+    } else {
+        res.status(404);
+        throw new Error("User is not found")
+    }
+}))
+
 router.get("/" ,isAdmin , asyncHandler(async (req, res) => {
         const users = await User.find({},"name");
         res.json(users);  

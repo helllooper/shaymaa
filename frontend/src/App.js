@@ -9,7 +9,8 @@ import Login from "./components/Login"
 import Footer from "./components/Footer";
 import Signup from "./components/Signup"
 import SuperAdmin from "./components/SuperAdmin";
-import ArticleDetails from "./components/ArticleDetails"
+import ArticleDetails from "./components/ArticleDetails";
+import Admin from "./components/Admin";
 import { BrowserRouter as Router, Route} from "react-router-dom";
 
 function App() {
@@ -23,8 +24,9 @@ function App() {
         <Route path="/addArticle" component={AddArticle} exact/>
         <Route path="/article/:id" component={ArticleDetails}/>
         <Route path="/login" component={Login} exact/>
-        <Route path ="/signup" component={Signup} />
-        <Route path="/superAdmin" component={SuperAdmin} />
+        <Route path ="/signup" component={Signup} exact/>
+        <Route path="/superAdmin" component={SuperAdmin} exact/>
+        <Route path="/admin/:id" component={Admin} exact/>
         <Route path="/" component={Home} exact/>
         <Footer />
       </div>
