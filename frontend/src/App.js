@@ -11,6 +11,7 @@ import Signup from "./components/Signup"
 import SuperAdmin from "./components/SuperAdmin";
 import ArticleDetails from "./components/ArticleDetails";
 import Admin from "./components/Admin";
+import EditArticle from "./components/EditArticle"
 import { BrowserRouter as Router, Route} from "react-router-dom";
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route path ="/signup" component={Signup} exact/>
         <Route path="/superAdmin" component={SuperAdmin} exact/>
         <Route path="/admin/:id" component={Admin} exact/>
+        <Route path="/edit/:id" component={EditArticle} exact />         
         <Route path="/" component={Home} exact/>
         <Footer />
       </div>

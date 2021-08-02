@@ -61,5 +61,20 @@ router.delete("/:id", isAdmin, asyncHandler(async(req, res) => {
     }
 }))
 
+router.put("/:id", isAdmin, asyncHandler(async(req, res) => {
+    const {title, brief, text, author} = req.body
+    const article = await Article.findById(req.params.id);
+    if(article){
+        article.title = title;
+        article.brief = brief;
+        article.text = text;
+        article.author = author;
+        const updatedArticle = await article.save();
+        res.json(updatedArticle);
+    } else {
+        res.status(404);
+        throw new Error("Article is not found");
+    }
+}))
 
 module.exports = router;

@@ -41,12 +41,12 @@ export const userListReducer = (state={}, action) => {
     }
 }
 
-export const getUserReducer = (state={user:{}}, action) => {
+export const getUserReducer = (state={user:{articles:[],videos:[]}}, action) => {
     switch(action.type){
         case constants.USER_GET_REQUEST:
             return{
                 loading:true,
-                user:{}
+                ...state
             }
         case constants.USER_GET_SUCCESS:
             return {
@@ -59,7 +59,28 @@ export const getUserReducer = (state={user:{}}, action) => {
                 error:action.payload
             }
         case constants.USER_GET_RESET:
-            return {}
+            return {user:{articles:[],videos:[]}}
+        default:
+            return state;
+    }
+}
+
+export const userDeleteReducer = (state={}, action) => {
+    switch(action.type){
+        case constants.USER_DELETE_REQUEST:
+            return{
+                loading:true
+            }
+        case constants.USER_DELETE_SUCCESS:
+            return {
+                loading:false,
+                success:true
+            }
+        case constants.USER_DELETE_FAIL:
+            return{
+                loading:false,
+                error:action.payload
+            }
         default:
             return state;
     }

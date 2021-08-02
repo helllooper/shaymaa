@@ -58,8 +58,19 @@ router.get("/admin/:id", isAdmin, asyncHandler(async(req, res) => {
 }))
 
 router.get("/" ,isAdmin , asyncHandler(async (req, res) => {
-        const users = await User.find({},"name");
+        const users = await User.find({},"name isAdmin");
         res.json(users);  
+}))
+
+router.delete("/delete/:id", isAdmin, asyncHandler(async(req, res) => {
+    const user = await User.findById(req.params.id);
+    if(user){
+        await user.remove();
+        res.json({message:"User is removed"});
+    } else {
+        res.status(404);
+        throw new Error("User is not found");
+    }
 }))
 
 module.exports =  router;

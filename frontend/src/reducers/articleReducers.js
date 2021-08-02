@@ -116,3 +116,29 @@ export const articleDeleteReducer = (state={}, action) => {
             return state;
     }
 }
+
+export const articleUpdateReducer = (state={article:{}}, action) => {
+    switch(action.type){
+        case constants.ARTICLE_UPDATE_REQUEST:
+            return {
+                loading:true
+              }
+        case constants.ARTICLE_UPDATE_SUCCESS:
+            return {
+                loading:false,
+                success:true,
+                article:action.payload
+              }
+        case constants.ARTICLE_UPDATE_FAILED:
+            return {
+                loading:false,
+                error:action.payload
+            }
+        case constants.ARTICLE_UPDATE_RESET:
+            return{
+                article:{}
+            }
+        default:
+            return state;
+    }
+}

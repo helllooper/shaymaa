@@ -2,7 +2,8 @@ import React from 'react'
 import {Row, Col, Button} from "react-bootstrap"
 import { LinkContainer } from "react-router-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteArticle } from "../actions/articleActions"
+import { deleteArticle } from "../actions/articleActions";
+import {NavLink} from "react-router-dom";
 
 
 const Article = (props) => {
@@ -29,7 +30,7 @@ const Article = (props) => {
            </Col>
            { userLogin.userInfo && userLogin.userInfo.isAdmin ? (
                <div className="py-2">
-                <Button id="edit" className="mx-2" variant="success">Edit</Button>
+                <Button id="edit" className="mx-2" variant="success"><NavLink>Edit</NavLink></Button>
                 <Button id="delete" className="mx-2" variant="danger" onClick={deleteArticleHandler}>Delete</Button>
                </div>
            ):null}

@@ -104,3 +104,28 @@ export const deleteArticle = (id) => async(dispatch, getState) => {
         })
     }
 }
+
+export const updateArticle = (article) => async(dispatch, getState) => {
+    try{
+    dispatch({
+        type:constants.ARTICLE_UPDATE_REQUEST
+    })
+    const {userLogin:{userInfo}} = getState();
+    const config = {
+        headers:{
+            "Content-Type":"application/json",
+            Authorization:`Bearer ${userInfo.token}`
+        }
+    }
+    const {data} = await axios.put(`/api/articles/${article._id}`, article, config)
+    dispatch({
+        type:constants.ARTICLE_UPDATE_SUCCESS,
+        payload:data
+    })
+    } catch(error){
+        dispatch({
+            type:constants.ARTICLE_UPDATE_FAILED,
+            payload:error.response && error.response.data.message ? error.response.data.message : error.message
+        })
+    }
+}

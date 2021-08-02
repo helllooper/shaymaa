@@ -1,32 +1,54 @@
 import React, { useState, useEffect} from 'react';
 import {Container, Row, Col, Form, Button} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import {createArticle} from "../actions/articleActions";
-import { Redirect } from "react-router-dom"
+import {updateArticle, articleDetails} from "../actions/articleActions";
+import { Redirect } from "react-router-dom";
+import Loading from "../components/Loading";
+import {ARTICLE_UPDATE_RESET} from "../constants/articleConstants";
 
-const AddArticle = ({location, history}) => {
+
+const EditArticle = ({match, history}) => {
+    const articleId = match.params.id
     const [title, setTitle] = useState("");
     const [brief, setBrief] = useState("");
     const [text, setText] = useState("");
     const [author, setAuthor] = useState("");
     const dispatch = useDispatch();
+    const {loading, success, article, error} = useSelector(state => state.articleDetails)
+    const {loading:loadingUpdate, error:errorUpdate, success:successUpdate, article:updatedArticle} = useSelector(state => state.articleUpdate)
     const userLogin = useSelector(state => state.userLogin)
+    
+    useEffect(async() => {
+        if(successUpdate){
+            dispatch({type:ARTICLE_UPDATE_RESET});
+            history.push(`/article/${updatedArticle._id}`)
+        } else {
+            await dispatch(articleDetails(articleId))
+            setTitle(article.title);
+            setBrief(article.brief);
+            setText(article.text);
+            setAuthor(article.author);
+        }
+           
+        
+    },[dispatch, article, articleId, history, successUpdate])
 
-    const submitHandler = async (e) => {
+    const submitHandler = (e) => {
         e.preventDefault();
-        await dispatch(createArticle({
+        dispatch(updateArticle({
+            _id:articleId,
             title,
             brief,
             text,
             author
         }))
-        history.push("/articles")
     }
 
     return (
         <Container id="form" className="position-relative py-5">
-            {!userLogin.userInfo && <Redirect to="/"/>}
-            <Row className="justify-content-center">
+            {!userLogin.userInfo || !userLogin.userInfo.isAdmin ? <Redirect to="/"/>:null}
+            {loading ? <Loading />:(
+                <Row className="justify-content-center">
                 <Col xs={8} md={6}>
                     <Form onSubmit={submitHandler}>
                         <Form.Group controlId = "title">
@@ -68,8 +90,9 @@ const AddArticle = ({location, history}) => {
                     </Form>
                 </Col>
             </Row>
+            )}
         </Container>
     )
 }
 
-export default AddArticle;
+export default EditArticle;

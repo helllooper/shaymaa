@@ -11,13 +11,16 @@ const Articles = ({history, match}) => {
     const pageNumber = match.params.pageNumber || 1
     console.log(pageNumber);
     const {loading, articles, error, page, pages} = useSelector(state => state.articleList)
+    const articleDelete = useSelector(state => state.articleDelete)
     useEffect(() => {
-        dispatch(listArticles(pageNumber));
-     }
-     ,[pageNumber])
+       if(!articleDelete.loading){
+         dispatch(listArticles(pageNumber));
+       }
+    }
+     ,[pageNumber, articleDelete.loading, articleDelete.sucess])
     return (
         <Container id="articles" className="position-relative">
-            {loading ? <Loading />:articles ? (
+            {loading  ? <Loading />:articles ? (
                 <div>
                   <h1 className="py-5">مقالات</h1>
                   {articles.map(article => <Article key={article._id} id={article._id} title={article.title} brief={article.brief} author={article.author} date={article.date}/>)}
