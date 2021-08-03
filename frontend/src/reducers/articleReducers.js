@@ -48,7 +48,7 @@ export const articleCreateReducer = (state={}, action) => {
     }
 } 
 
-export const articleDetailsReducer = (state={}, action) => {
+export const articleDetailsReducer = (state={article:{}}, action) => {
       switch(action.type){
           case constants.ARTICLE_DETAILS_REQUEST:
               return {
@@ -66,7 +66,9 @@ export const articleDetailsReducer = (state={}, action) => {
                   error:action.payload
               }
           case constants.ARTICLE_DETAILS_RESET:
-              return {}
+              return {
+                  article:{}
+              }
           default:
               return state;
       }

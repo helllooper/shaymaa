@@ -1,7 +1,8 @@
 import React, { useState, useEffect} from 'react';
-import {Container, Form, Button, Row, Col} from "react-bootstrap";
+import {Container, Form, Button, Nav} from "react-bootstrap";
 import { useDispatch} from "react-redux";
 import { login } from "../actions/userActions";
+import { NavLink } from "react-router-dom";
 
 const Login = ({history, match}) => {
     const [email, setEmail] = useState("");
@@ -38,7 +39,9 @@ const Login = ({history, match}) => {
                     onChange={(e) => setPassword(e.target.value)}>
                     </Form.Control>
                 </Form.Group>
+
                 <Button type="submit" className="my-3" variant="success">Sign In</Button>
+                <NavLink className="d-block" to="/enterEmail">Forgot password?</NavLink>
             </Form>
         </Container>
         </div>

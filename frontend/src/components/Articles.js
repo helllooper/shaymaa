@@ -23,7 +23,7 @@ const Articles = ({history, match}) => {
             {loading  ? <Loading />:articles ? (
                 <div>
                   <h1 className="py-5">مقالات</h1>
-                  {articles.map(article => <Article key={article._id} id={article._id} title={article.title} brief={article.brief} author={article.author} date={article.date}/>)}
+                  {articles.map(article => <Article key={article._id} id={article._id} title={article.title} brief={article.brief} author={article.author} date={article.date} history={history}/>)}
                   <Paginate page={page} pages={pages}/>
                 </div>
             ):null}

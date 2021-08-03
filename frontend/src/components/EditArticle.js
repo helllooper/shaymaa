@@ -1,14 +1,13 @@
 import React, { useState, useEffect} from 'react';
 import {Container, Row, Col, Form, Button} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import {updateArticle, articleDetails} from "../actions/articleActions";
+import {updateArticle} from "../actions/articleActions";
 import { Redirect } from "react-router-dom";
 import Loading from "../components/Loading";
 import {ARTICLE_UPDATE_RESET} from "../constants/articleConstants";
 
 
-const EditArticle = ({match, history}) => {
-    const articleId = match.params.id
+const EditArticle = ({history, match}) => {
     const [title, setTitle] = useState("");
     const [brief, setBrief] = useState("");
     const [text, setText] = useState("");
@@ -19,35 +18,32 @@ const EditArticle = ({match, history}) => {
     const userLogin = useSelector(state => state.userLogin)
     
     useEffect(async() => {
-        if(successUpdate){
-            dispatch({type:ARTICLE_UPDATE_RESET});
-            history.push(`/article/${updatedArticle._id}`)
-        } else {
-            await dispatch(articleDetails(articleId))
-            setTitle(article.title);
-            setBrief(article.brief);
-            setText(article.text);
-            setAuthor(article.author);
-        }
+        setTitle(article.title);
+        setBrief(article.brief);
+        setText(article.text);
+        setAuthor(article.author);
            
-        
-    },[dispatch, article, articleId, history, successUpdate])
+        return () => {
+            return dispatch({type:ARTICLE_UPDATE_RESET});
+        }
+    },[])
 
-    const submitHandler = (e) => {
+    const submitHandler = async(e) => {
         e.preventDefault();
-        dispatch(updateArticle({
-            _id:articleId,
+        await dispatch(updateArticle({
+            _id:article._id,
             title,
             brief,
             text,
             author
         }))
+        history.push(`/article/${article._id}`)
     }
 
     return (
         <Container id="form" className="position-relative py-5">
             {!userLogin.userInfo || !userLogin.userInfo.isAdmin ? <Redirect to="/"/>:null}
-            {loading ? <Loading />:(
+            {loading  ? <Loading />:(
                 <Row className="justify-content-center">
                 <Col xs={8} md={6}>
                     <Form onSubmit={submitHandler}>

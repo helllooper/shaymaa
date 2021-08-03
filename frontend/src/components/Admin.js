@@ -21,7 +21,7 @@ const Admin = ({history, match}) => {
             {loading ? <Loading />: (
                <div>
                    <h4>Articles:</h4>
-                       {user.articles.map(article => <Article id={article._id} title={article.title} brief={article.brief} date={article.date} author={article.author}/>)}
+                       {user.articles.map(article => <Article id={article._id} title={article.title} brief={article.brief} date={article.date} author={article.author} history={history}/>)}
                    <h4 className="py-5">Videos:</h4>
                </div>
             )}

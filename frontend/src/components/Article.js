@@ -2,8 +2,7 @@ import React from 'react'
 import {Row, Col, Button} from "react-bootstrap"
 import { LinkContainer } from "react-router-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteArticle } from "../actions/articleActions";
-import {NavLink} from "react-router-dom";
+import { deleteArticle , articleDetails } from "../actions/articleActions";
 
 
 const Article = (props) => {
@@ -11,6 +10,10 @@ const Article = (props) => {
     const userLogin = useSelector(state => state.userLogin);
     const deleteArticleHandler = () => {
         dispatch(deleteArticle(props.id));
+    }
+    const getArticleHandler = async() => {
+        await dispatch(articleDetails(props.id));
+        props.history.push("/edit");
     }
     return (
         <Row id="article" className="py-3">
@@ -30,7 +33,7 @@ const Article = (props) => {
            </Col>
            { userLogin.userInfo && userLogin.userInfo.isAdmin ? (
                <div className="py-2">
-                <Button id="edit" className="mx-2" variant="success"><NavLink>Edit</NavLink></Button>
+                <Button id="edit" className="mx-2" variant="success" onClick={getArticleHandler}>Edit</Button>
                 <Button id="delete" className="mx-2" variant="danger" onClick={deleteArticleHandler}>Delete</Button>
                </div>
            ):null}
