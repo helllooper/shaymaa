@@ -4,11 +4,12 @@ import { useDispatch } from "react-redux";
 import { register } from "../actions/userActions"
 
 
-const Signup = () => {
+const Signup = ({history, match}) => {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("")
+    const [secretWord, setSecretWord] = useState("");
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -16,12 +17,13 @@ const Signup = () => {
     }
     , [])
 
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault();
         if(password !== confirmPassword){
             console.log("Passwords do not match");
         } else {
-            dispatch(register(name, email, password))
+            await dispatch(register(name, email, password, secretWord))
+            history.push("/");
         }
     }
 
@@ -66,6 +68,15 @@ const Signup = () => {
                     placeholder="Confirm Password" 
                     value={confirmPassword} 
                     onChange={(e) => setConfirmPassword(e.target.value)}>
+                    </Form.Control>
+                </Form.Group>
+                <Form.Group controlId = "secretword">
+                    <Form.Label>Secret word</Form.Label>
+                    <Form.Control 
+                    type="password" 
+                    placeholder="Enter the secret word" 
+                    value={secretWord} 
+                    onChange={(e) => setSecretWord(e.target.value)}>
                     </Form.Control>
                 </Form.Group>
                 <Button type="submit" className="my-3" variant="success">Sign In</Button>

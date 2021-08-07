@@ -4,6 +4,7 @@ const User = require("../models/userModel");
 const generateToken = require("../utils/generateToken")
 const { isAdmin } = require("../middlewares/authMiddleware")
 const jwt = require("jsonwebtoken")
+const SecretWord = require("../models/secretWordModel")
 const router = express.Router();
 const sgMail = require('@sendgrid/mail')
 const sendgridApiKey = "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"
@@ -25,9 +26,11 @@ router.post("/login", asyncHandler(async (req, res) => {
 }))
 
 router.post("/signup", asyncHandler(async (req, res) => {
-  const {name, email, password} = req.body
+  const {name, email, password, secretWord} = req.body
+  console.log(secretWord);
   const nameExists = await User.findOne({name})
   const emailExists = await User.findOne({email})
+  const word = await SecretWord.findOne({});
   if (nameExists){
     res.status(400);
     throw new Error("Username already exists");
@@ -36,19 +39,26 @@ router.post("/signup", asyncHandler(async (req, res) => {
       res.status(400);
       throw new Error("Email already exists");
   }
-  const user = await User.create({
-      name,
-      email,
-      password
-  })
-  if(user){
-      res.status(201).json({
-        token:generateToken(user._id)
-      })
+  if (word && await word.matchSecretWords(secretWord)){
+    const user = await User.create({
+        name,
+        email,
+        password
+    })
+    if(user){
+        res.status(201).json({
+          token:generateToken(user._id)
+        })
+    } else {
+        res.status(400);
+        throw new Error("Invalid user data")
+    }
   } else {
-      res.status(400);
-      throw new Error("Invalid user data")
+    res.status(400);
+    console.log("Secret word is wrong");
+    throw new Error("Secret word is wrong");
   }
+  
 }))
 
 router.get("/admin/:id", isAdmin, asyncHandler(async(req, res) => {
@@ -120,7 +130,6 @@ router.get("/reset-password/:id/:token", async(req, res) => {
         const secret = process.env.JWT_SECRET + user.password;
         try{
             const payload = jwt.verify(token, secret);
-            console.log(payload);
             res.json(payload);
         }catch(error){
             throw new Error("Server Error");
@@ -139,7 +148,6 @@ router.post("/reset-password/:id/:token", async(req, res) => {
     const secret = process.env.JWT_SECRET + user.password;
         try{
             const payload = jwt.verify(token, secret);
-            console.log(payload);
             user.password = password;
             await user.save();
             res.json(payload);
@@ -147,5 +155,29 @@ router.post("/reset-password/:id/:token", async(req, res) => {
             throw new Error("Server Error");
         }
 })
+
+router.post("/secretWord", isAdmin, asyncHandler(async(req, res) => {
+    console.log("working...");
+   const secretWord = await SecretWord.findOne({});
+   console.log(secretWord);
+   if(secretWord){
+       secretWord.word = req.body.secretWord;
+       await secretWord.save()
+       res.json({message:"Secret word changed successfully"})
+   }
+   else {
+    const createdSecretWord = await SecretWord.create({
+        word:req.body.secretWord
+    })
+    if(createdSecretWord){
+        res.status(201).json({
+            message:"Secret word is created successfully"
+        })
+    } else {
+        res.status(400);
+        throw new Error("Invalid data");
+    }
+   }
+}))
 
 module.exports =  router;

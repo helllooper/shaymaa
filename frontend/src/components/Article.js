@@ -9,7 +9,9 @@ const Article = (props) => {
     const dispatch = useDispatch();
     const userLogin = useSelector(state => state.userLogin);
     const deleteArticleHandler = () => {
-        dispatch(deleteArticle(props.id));
+        if(window.confirm("Are you sure?")){
+            dispatch(deleteArticle(props.id));
+        }
     }
     const getArticleHandler = async() => {
         await dispatch(articleDetails(props.id));

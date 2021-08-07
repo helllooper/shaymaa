@@ -9,9 +9,9 @@ const Login = ({history, match}) => {
     const [password, setPassword] = useState("");
     const dispatch = useDispatch()
 
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault();
-        dispatch(login(email, password));
+        await dispatch(login(email, password));
         history.push("/");
     }
 

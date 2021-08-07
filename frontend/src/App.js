@@ -13,11 +13,14 @@ import ArticleDetails from "./components/ArticleDetails";
 import Admin from "./components/Admin";
 import EditArticle from "./components/EditArticle";
 import EnterEmail from "./components/EnterEmail";
+import ScrollToTop from "./components/ScrollToTop";
+import AddVideo from "./components/AddVideo";
 import { BrowserRouter as Router, Route} from "react-router-dom";
 
 function App() {
   return (
     <Router>
+        <ScrollToTop />
         <FirstNav />
         <SecondNav />
         <Route path="/articles" component={Articles} exact/>
@@ -29,7 +32,8 @@ function App() {
         <Route path="/superAdmin" component={SuperAdmin} exact/>
         <Route path="/admin/:id" component={Admin} exact/>
         <Route path="/edit" component={EditArticle} exact />
-        <Route path="/enterEmail" component={EnterEmail} exact />         
+        <Route path="/enterEmail" component={EnterEmail} exact />
+        <Route path="/addVideo" component={AddVideo} exact/>         
         <Route path="/" component={Home} exact/>
         <Footer />
     </Router>

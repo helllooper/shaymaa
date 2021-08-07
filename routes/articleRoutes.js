@@ -9,7 +9,6 @@ const router = express.Router();
 router.get("/", asyncHandler(async (req, res) => {
     const pageSize = 5;
     const page = req.query.pageNumber || 1;
-    console.log(page);
     const count = await Article.countDocuments();
     const articles = await Article.find({}, "title brief author date").limit(pageSize).skip(pageSize * (page - 1));
     res.json({articles, page, pages:Math.ceil(count / pageSize)});

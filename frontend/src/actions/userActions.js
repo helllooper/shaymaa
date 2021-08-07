@@ -31,12 +31,12 @@ export const logout = () => dispatch => {
 }
 
 
-export const register = (name, email, password) => async (dispatch) => {
+export const register = (name, email, password, secretWord) => async (dispatch) => {
     try {
         dispatch({
             type:constants.USER_LOGIN_REQUEST
         })
-        const {data} = await axios.post("/api/users/signup", {name, email, password})
+        const {data} = await axios.post("/api/users/signup", {name, email, password, secretWord})
         dispatch({
             type:constants.USER_LOGIN_SUCCESS,
             payload:data
