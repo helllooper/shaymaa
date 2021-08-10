@@ -9,11 +9,7 @@ const videoSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    url:{
-        type:String,
-        required:true
-    },
-    videoId:{
+    publicId:{
         type:String,
         required:true
     },

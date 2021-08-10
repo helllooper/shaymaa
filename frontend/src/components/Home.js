@@ -3,7 +3,7 @@ import MainPic from "./MainPic"
 import Circles from "./Circles";
 import Background from "./Background";
 import Cards from "./Cards";
-import Video from "./Video";
+import HomePageVideo from "./HomePageVideo";
 import Carousel from "./Carousel";
 
 const Home = () => {
@@ -13,7 +13,7 @@ const Home = () => {
         <Circles />
         <Background />
         <Cards />
-        <Video />
+        <HomePageVideo />
         <Carousel /> 
         </>
     )

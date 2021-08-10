@@ -4,6 +4,7 @@ import FirstNav from "./components/FirstNav"
 import SecondNav from "./components/SecondNav"
 import Home from "./components/Home"
 import Articles from "./components/Articles"
+import Videos from "./components/Videos";
 import AddArticle from "./components/AddArticle"
 import Login from "./components/Login"
 import Footer from "./components/Footer";
@@ -24,7 +25,9 @@ function App() {
         <FirstNav />
         <SecondNav />
         <Route path="/articles" component={Articles} exact/>
+        <Route path="/videos" component={Videos} exact/>
         <Route path="/articles/:pageNumber" component={Articles} exact/>
+        <Route path="/videos/:pageNumber" component={Videos} exact/>
         <Route path="/addArticle" component={AddArticle} exact/>
         <Route path="/article/:id" component={ArticleDetails}/>
         <Route path="/login" component={Login} exact/>

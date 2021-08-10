@@ -1,24 +1,38 @@
 import React, { useState, useEffect} from 'react';
-import {Container, Row, Col, Form, Button} from "react-bootstrap";
+import {Container, Row, Col, Form, Button, ProgressBar} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import {createArticle} from "../actions/articleActions";
+import { uploadVideo } from "../actions/videoActions"
 import { Redirect } from "react-router-dom"
 
 const AddVideo = ({location, history}) => {
     const [title, setTitle] = useState("");
     const [brief, setBrief] = useState("");
     const [video, setVideo] = useState("");
+    const [uploadPercentage, setUploadPercentage] = useState(0);
     const dispatch = useDispatch();
     const userLogin = useSelector(state => state.userLogin)
+    const {loading, success} = useSelector(state => state.videoUpload)
 
-    const submitHandler = async (e) => {}
+
+    const uploadVideoHandler = async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("brief", brief);
+        formData.append("video", video);
+        dispatch(uploadVideo(formData, setUploadPercentage));
+    }
+
+    useEffect(() =>{
+
+    },[uploadPercentage, loading, success])
 
     return (
         <Container id="form" className="position-relative py-5">
             {!userLogin.userInfo && <Redirect to="/"/>}
             <Row className="justify-content-center">
                 <Col xs={8} md={6}>
-                    <Form onSubmit={submitHandler}>
+                    <Form onSubmit={uploadVideoHandler}>
                         <Form.Group controlId = "title">
                             <Form.Label>العنوان</Form.Label>
                             <Form.Control 
@@ -39,13 +53,13 @@ const AddVideo = ({location, history}) => {
                             <Form.Label>تحميل فيديو</Form.Label>
                             <Form.Control 
                             type="file" 
-                            className="form-control"
-                            value={video} 
-                            onChange={(e) => setVideo(e.target.value)}/>
+                            className="form-control" 
+                            onChange={e => setVideo(e.target.files[0])}/>
                         </Form.Group>
                         <div className="text-center">
-                            <Button type="submit" variant="outline-secondary mt-3">إرسال</Button>
+                            <Button type="submit" variant="outline-secondary mt-3" disabled={loading}>إرسال</Button>
                         </div>
+                        { loading ? <ProgressBar label={`${uploadPercentage}%`} now={uploadPercentage} variant="success" className="my-3"/>:null}
                     </Form>
                 </Col>
             </Row>

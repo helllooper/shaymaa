@@ -20,7 +20,7 @@ const SecondNav = ({history, match}) => {
                     <Nav className="w-100 d-inline-flex justify-content-center">
                         <Nav.Link className="px-4 order-md-4"><NavLink to="/">الرئيسية</NavLink></Nav.Link>
                         <Nav.Link className="px-4 order-md-3"><NavLink to="/articles">مقالات</NavLink></Nav.Link>
-                        <Nav.Link className="px-4 order-md-2"><NavLink to="#">فيديوهات</NavLink></Nav.Link>
+                        <Nav.Link className="px-4 order-md-2"><NavLink to="/videos">فيديوهات</NavLink></Nav.Link>
                         <Nav.Link className="px-4 order-md-1"><NavLink to="#">رؤيتنا</NavLink></Nav.Link>
                         {userLogin.userInfo ? (
                             <Nav className="d-flex">

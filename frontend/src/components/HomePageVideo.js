@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 
-const Video = () => {
+const HomePageVideo = () => {
     return (
         <Container id="video" className="position-relative text-center pb-5">
             <h1 className="pb-5 fw-bold">مقدمة عن مرض <span className="aim">السكري</span></h1>
@@ -14,4 +14,4 @@ const Video = () => {
     )
 }
 
-export default Video
+export default HomePageVideo
