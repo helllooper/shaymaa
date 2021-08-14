@@ -1,6 +1,6 @@
 import React , {useEffect}from 'react'
 import { Container } from "react-bootstrap"
-import Video from "./SingleVideo";
+import Video from "./Video";
 import {useDispatch, useSelector} from "react-redux";
 import {listVideos} from "../actions/videoActions";
 import Loading from "./Loading";
@@ -20,7 +20,7 @@ const Videos = ({history, match}) => {
             {loading  ? <Loading />:videos ? (
                 <div>
                   <h1 className="py-5">فيديوهات</h1>
-                  {videos.map(video => <Video key={video._id}  title={video.title} brief={video.brief} publicId={video.publicId} date={video.date} history={history}/>)}
+                  {videos.map(video => <Video key={video._id} id={video._id}  title={video.title} brief={video.brief} url={video.url} date={video.date} history={history}/>)}
                   <Paginate page={page} pages={pages}/>
                 </div>
             ):null}

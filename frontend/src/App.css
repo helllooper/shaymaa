@@ -59,7 +59,7 @@ a:hover {
         background-position: center;
     }
 
-    iframe {
+    #homePageVideo {
         height: 300px;
     }
 
@@ -145,7 +145,7 @@ a:hover {
         transform: translateX(-100vw);
      }
 
-     iframe {
+     #homePageVideo {
         height: 400px;
     }
  }

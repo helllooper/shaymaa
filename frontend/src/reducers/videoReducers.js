@@ -34,7 +34,7 @@ export const videoListReducer = (state={}, action) => {
         case constants.VIDEO_LIST_SUCCESS:
             return {
                 loading:false,
-                videos:action.payload.articles,
+                videos:action.payload.videos,
                 page:action.payload.page,
                 pages:action.payload.pages
             }
@@ -42,6 +42,32 @@ export const videoListReducer = (state={}, action) => {
             return {
                 loading:false,
                 error:action.payload
+            }
+        default:
+            return state;
+    }
+}
+
+export const videoDetailsReducer = (state={video:{}}, action) => {
+    switch(action.type){
+        case constants.VIDEO_DETAILS_REQUEST:
+            return {
+                loading:true,
+                ...state
+            }
+        case constants.VIDEO_DETAILS_SUCCESS:
+            return {
+                loading:false,
+                video:action.payload
+            }
+        case constants.VIDEO_DETAILS_FAILED:
+            return {
+                loading:false,
+                error:action.payload
+            }
+        case constants.VIDEO_DETAILS_RESET:
+            return {
+                video:{}
             }
         default:
             return state;

@@ -9,9 +9,12 @@ const videoSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    publicId:{
+    url:{
         type:String,
         required:true
+    },
+    filename:{
+        type:String
     },
     date:{
         type: Date, 

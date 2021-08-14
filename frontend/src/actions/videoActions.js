@@ -1,22 +1,31 @@
 import axios from "axios";
 import * as constants from "../constants/videoConstants";
 
-export const uploadVideo = (video, setUploadPercentage) => async(dispatch, getState) => {
+export const uploadVideo = (video, type, setUploadPercentage) => async(dispatch, getState) => {
     try{
     dispatch({
             type:constants.VIDEO_UPLOAD_REQUEST
     })
     const {userLogin:{userInfo}} = getState();
-    const config = {
-        headers:{
-            "Content-Type":"multipart/form-data",
-            Authorization:`Bearer ${userInfo.token}`
-        },
-        onUploadProgress:progressEvent => {
-           setUploadPercentage(parseInt(Math.round((progressEvent.loaded * 100)/progressEvent.total)))
+    if(type === "cloudinary"){
+        const config = {
+            headers:{
+                "Content-Type":"multipart/form-data",
+                Authorization:`Bearer ${userInfo.token}`
+            },
+            onUploadProgress:progressEvent => {
+               setUploadPercentage(parseInt(Math.round((progressEvent.loaded * 100)/progressEvent.total)))
+            }
         }
+        var {data} = await axios.post("/api/videos", video, config)
+    } else if (type === "youtube") {
+        const config = {
+            headers:{
+                Authorization:`Bearer ${userInfo.token}`
+            }
+        }
+        var {data} = await axios.post("/api/videos/youtube", video, config)
     }
-    const {data} = await axios.post("/api/videos", video, config)
     dispatch({
         type:constants.VIDEO_UPLOAD_SUCCESS,
         payload:data
@@ -43,6 +52,31 @@ export const listVideos = (pageNumber) => async dispatch => {
     } catch(error){
         dispatch({
             type:constants.VIDEO_LIST_FAILED,
+            payload:error.response && error.response.data.message ? error.response.data.message : error.message
+        })
+    }
+    
+}
+
+export const videoDetails = (id) => async (dispatch, getState) => {
+    try{
+        dispatch({
+            type:constants.VIDEO_DETAILS_REQUEST
+        });
+        const {userLogin:{userInfo}} = getState();
+        const config = {
+            headers:{
+                Authorization:`Bearer ${userInfo.token}`
+            }
+        }
+        const {data} = await axios.get(`/api/videos/${id}`,config);
+        dispatch({
+            type:constants.VIDEO_DETAILS_SUCCESS,
+            payload:data
+        })
+    } catch(error){
+        dispatch({
+            type:constants.VIDEO_DETAILS_FAILED,
             payload:error.response && error.response.data.message ? error.response.data.message : error.message
         })
     }
