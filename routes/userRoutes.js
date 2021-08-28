@@ -1,4 +1,5 @@
 const express = require("express");
+const { check, validationResult } = require('express-validator');
 const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
 const generateToken = require("../utils/generateToken")
@@ -10,7 +11,29 @@ const sgMail = require('@sendgrid/mail')
 const sendgridApiKey = "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"
 sgMail.setApiKey(sendgridApiKey)
 
-router.post("/login", asyncHandler(async (req, res) => {
+// router.post("/login", asyncHandler(async (req, res, next) => {
+//     const { email , password } = req.body;
+//     const user = await User.findOne({email});
+//     if (user && await user.matchPassword(password)){
+//         res.json({
+//             name:user.name,
+//             isAdmin:user.isAdmin,
+//             token:generateToken(user._id)
+//         })
+//     } else {
+//         res.status(401);
+//         throw new Error("invaild email or password")
+//     }
+// }))
+
+router.post("/login",[
+    check("email", "Please enter a valid email").isEmail(),
+    check("password", "Please enter your password").not().isEmpty()
+  ] ,asyncHandler(async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      throw new Error(errors.array()[0].msg);
+    }
     const { email , password } = req.body;
     const user = await User.findOne({email});
     if (user && await user.matchPassword(password)){
@@ -25,9 +48,18 @@ router.post("/login", asyncHandler(async (req, res) => {
     }
 }))
 
-router.post("/signup", asyncHandler(async (req, res) => {
-  const {name, email, password, secretWord} = req.body
-  console.log(secretWord);
+router.post("/signup",[
+    check("name", "Please enter a name").not().isEmpty(),
+    check("email", "Please enter a valid email").isEmail(),
+    check("password", "Your password must have at least 6 characters").isLength({min: 6}),
+    check("confirmPassword", "Please confirm your password").not().isEmpty(),
+    check("secretWord", "Please enter the secret word").not().isEmpty()
+  ], asyncHandler(async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      throw new Error(errors.array()[0].msg);
+    } 
+  const {name, email, password,confirmPassword, secretWord} = req.body
   const nameExists = await User.findOne({name})
   const emailExists = await User.findOne({email})
   const word = await SecretWord.findOne({});
@@ -38,6 +70,10 @@ router.post("/signup", asyncHandler(async (req, res) => {
   if (emailExists){
       res.status(400);
       throw new Error("Email already exists");
+  }
+  if(password !== confirmPassword){
+    res.status(400);
+    throw new Error("Passwords don't match"); 
   }
   if (word && await word.matchSecretWords(secretWord)){
     const user = await User.create({
@@ -55,14 +91,13 @@ router.post("/signup", asyncHandler(async (req, res) => {
     }
   } else {
     res.status(400);
-    console.log("Secret word is wrong");
     throw new Error("Secret word is wrong");
   }
   
 }))
 
 router.get("/admin/:id", isAdmin, asyncHandler(async(req, res) => {
-    const user = await User.findById(req.params.id).populate("articles", "title brief date author");
+    const user = await User.findById(req.params.id).populate("articles", "title brief date author").populate("videos");
     if(user){
         res.status(201).json(user)
     } else {

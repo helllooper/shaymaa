@@ -73,3 +73,50 @@ export const videoDetailsReducer = (state={video:{}}, action) => {
             return state;
     }
 }
+
+export const videoUpdateReducer = (state={message:{}}, action) => {
+    switch(action.type){
+        case constants.VIDEO_UPDATE_REQUEST:
+            return {
+                loading:true
+              }
+        case constants.VIDEO_UPDATE_SUCCESS:
+            return {
+                loading:false,
+                success:true,
+                message:action.payload
+              }
+        case constants.VIDEO_UPDATE_FAILED:
+            return {
+                loading:false,
+                error:action.payload
+            }
+        case constants.VIDEO_UPDATE_RESET:
+            return{
+                message:{}
+            }
+        default:
+            return state;
+    }
+}
+
+export const videoDeleteReducer = (state={}, action) => {
+    switch(action.type){
+        case constants.VIDEO_DELETE_REQUEST:
+            return {
+                loading:true
+              }
+        case constants.VIDEO_DELETE_SUCCESS:
+            return {
+                loading:false,
+                success:true
+              }
+        case constants.VIDEO_DELETE_FAILED:
+            return {
+                loading:false,
+                error:action.payload
+            }
+        default:
+            return state;
+    }
+}

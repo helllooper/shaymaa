@@ -10,11 +10,14 @@ const Videos = ({history, match}) => {
     const dispatch = useDispatch();
     const pageNumber = match.params.pageNumber || 1
     const {loading, videos, error, page, pages} = useSelector(state => state.videoList)
-    // const articleDelete = useSelector(state => state.articleDelete)
+    const videoDelete = useSelector(state => state.videoDelete)
     useEffect(() => {
-         dispatch(listVideos(pageNumber));
+        if(!videoDelete.loading){
+            dispatch(listVideos(pageNumber));
+          }
+         
     }
-     ,[pageNumber])
+     ,[pageNumber, videoDelete.loading])
     return (
         <Container id="articles" className="position-relative">
             {loading  ? <Loading />:videos ? (

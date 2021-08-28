@@ -1,20 +1,21 @@
-import React from 'react';
-import { Pagination } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap"; 
+import React, {useState} from 'react'
+import Pagination from "react-js-pagination";
 
-const Paginate = ({pages, page}) => {
+
+const Paginate = (props) => {
+    const handlePageChange = (pageNumber) => {
+        props.history.push(`/articles/${pageNumber}`)
+      }
     return (
-        pages > 1 && (
-            <Pagination>
-                {
-                    [...Array(pages).keys()].map(x =>(
-                        <LinkContainer key={x + 1} to={`/articles/${x + 1}`}>
-                            <Pagination.Item active={x + 1 === page}>{ x + 1 }</Pagination.Item>
-                        </LinkContainer>
-                    ))
-                }
-            </Pagination>
-        )
+        <div>
+        <Pagination
+          activePage={props.page}
+          itemsCountPerPage={5}
+          totalItemsCount={props.count}
+          pageRangeDisplayed={5}
+          onChange={(pageNumber) => {handlePageChange(pageNumber)}}
+        />
+      </div>
     )
 }
 

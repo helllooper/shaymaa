@@ -6,7 +6,6 @@ import { NavLink } from "react-router-dom";
 import { logout } from "../actions/userActions"
 
 const SecondNav = ({history, match}) => {
-    console.log(history);
     const dispatch = useDispatch()
     const userLogin = useSelector(state => state.userLogin);
     const logoutHandler = () => {
@@ -19,8 +18,8 @@ const SecondNav = ({history, match}) => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="w-100 d-inline-flex justify-content-center">
                         <Nav.Link className="px-4 order-md-4"><NavLink to="/">الرئيسية</NavLink></Nav.Link>
-                        <Nav.Link className="px-4 order-md-3"><NavLink to="/articles">مقالات</NavLink></Nav.Link>
-                        <Nav.Link className="px-4 order-md-2"><NavLink to="/videos">فيديوهات</NavLink></Nav.Link>
+                        <Nav.Link className="px-4 order-md-3"><NavLink to={`/articles/${1}`} >مقالات</NavLink></Nav.Link>
+                        <Nav.Link className="px-4 order-md-2"><NavLink to="/videos/1">فيديوهات</NavLink></Nav.Link>
                         <Nav.Link className="px-4 order-md-1"><NavLink to="#">رؤيتنا</NavLink></Nav.Link>
                         {userLogin.userInfo ? (
                             <Nav className="d-flex">

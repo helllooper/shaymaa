@@ -276,6 +276,7 @@ a:hover {
 
  #form {
      top:136px;
+     min-height: 100vh;
  }
 
  #login {
@@ -409,3 +410,18 @@ a:hover {
  #secretWord {
   width: 360px;
  }
+
+ .editVideo {
+   min-height: 80vh;
+ }
+
+ #player-wrapper {
+  position: relative;
+  padding-top: 56.25%
+}
+
+.react-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

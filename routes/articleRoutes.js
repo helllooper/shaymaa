@@ -3,6 +3,7 @@ const asyncHandler = require("express-async-handler");
 const Article = require("../models/articlesModel");
 const { isAdmin, protect } = require("../middlewares/authMiddleware")
 const User = require("../models/userModel");
+const { check, validationResult } = require('express-validator');
 
 const router = express.Router();
 
@@ -11,10 +12,19 @@ router.get("/", asyncHandler(async (req, res) => {
     const page = req.query.pageNumber || 1;
     const count = await Article.countDocuments();
     const articles = await Article.find({}, "title brief author date").limit(pageSize).skip(pageSize * (page - 1));
-    res.json({articles, page, pages:Math.ceil(count / pageSize)});
+    res.json({articles,count,page:parseInt(page)});
 }))
 
-router.post("/",protect ,asyncHandler(async(req, res) => {
+router.post("/", [
+    check("title", "قم بكتابة عنوان المقالة").not().isEmpty(),
+    check("brief", "قم بكتابة مقدمة المقالة").not().isEmpty(),
+    check("text", "قم بكتابة محتوى المقالة").not().isEmpty(),
+    check("author", "قم بكتابة كاتب المقالة").not().isEmpty(),
+  ], protect ,asyncHandler(async(req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      throw new Error(errors.array()[0].msg);
+    }
     const user = await User.findById(req.user._id);
     const {title, brief, text, author} = req.body
     const article = new Article({
@@ -60,7 +70,16 @@ router.delete("/:id", isAdmin, asyncHandler(async(req, res) => {
     }
 }))
 
-router.put("/:id", isAdmin, asyncHandler(async(req, res) => {
+router.put("/:id",[
+    check("title", "قم بكتابة عنوان المقالة").not().isEmpty(),
+    check("brief", "قم بكتابة مقدمة المقالة").not().isEmpty(),
+    check("text", "قم بكتابة محتوى المقالة").not().isEmpty(),
+    check("author", "قم بكتابة كاتب المقالة").not().isEmpty(),
+  ], isAdmin, asyncHandler(async(req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      throw new Error(errors.array()[0].msg);
+    }
     const {title, brief, text, author} = req.body
     const article = await Article.findById(req.params.id);
     if(article){

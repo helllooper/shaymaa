@@ -1,10 +1,12 @@
 import React, { useState, useEffect} from 'react';
 import {Container, Form, Button, Row, Col} from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { register } from "../actions/userActions"
-
+import Loading from "./Loading";
+import Message from "./Message";
 
 const Signup = ({history, match}) => {
+    const {loading, error,success, userInfo} = useSelector(state => state.userLogin)
     const [name, setName] = useState("")
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -13,25 +15,23 @@ const Signup = ({history, match}) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-
-    }
-    , [])
+        if(success){
+            history.push("/");
+          }
+    }, [loading, userInfo, error, success])
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        if(password !== confirmPassword){
-            console.log("Passwords do not match");
-        } else {
-            await dispatch(register(name, email, password, secretWord))
-            history.push("/");
-        }
+        dispatch(register(name, email, password,confirmPassword, secretWord))
     }
 
     return (
         <div id="admin" className="d-flex align-items-center">
         <Container id="login" className="postion-relative text-start">
             <h1>Sign Up</h1>
-            <Form onSubmit = {submitHandler}>
+            {error && <Message variant="danger">{error}</Message>}
+            {loading ? <Loading />:(
+                <Form onSubmit = {submitHandler}>
             <Form.Group controlId = "name">
                     <Form.Label>Name</Form.Label>
                     <Form.Control 
@@ -81,6 +81,7 @@ const Signup = ({history, match}) => {
                 </Form.Group>
                 <Button type="submit" className="my-3" variant="success">Sign In</Button>
             </Form>
+            )}
         </Container>
         </div>
     )

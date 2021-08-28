@@ -12,7 +12,8 @@ export const articleListReducer = (state={}, action) => {
                 loading:false,
                 articles:action.payload.articles,
                 page:action.payload.page,
-                pages:action.payload.pages
+                pages:action.payload.pages,
+                count:action.payload.count
             }
         case constants.ARTICLE_LIST_FAILED:
             return {

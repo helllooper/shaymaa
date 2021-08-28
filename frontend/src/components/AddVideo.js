@@ -3,6 +3,9 @@ import {Container, Row, Col, Form, Button, ProgressBar} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadVideo } from "../actions/videoActions"
 import { Redirect } from "react-router-dom"
+import Message from "./Message";
+import {VIDEO_UPLOAD_RESET} from "../constants/videoConstants";
+
 
 const AddVideo = ({location, history}) => {
     const [type, setType] = useState("cloudinary");
@@ -13,7 +16,7 @@ const AddVideo = ({location, history}) => {
     const [uploadPercentage, setUploadPercentage] = useState(0);
     const dispatch = useDispatch();
     const userLogin = useSelector(state => state.userLogin)
-    const {loading, success} = useSelector(state => state.videoUpload)
+    const {loading, success, message, error} = useSelector(state => state.videoUpload)
 
 
     const uploadVideoHandler = async (e) => {
@@ -23,6 +26,7 @@ const AddVideo = ({location, history}) => {
             data.append("title", title);
             data.append("brief", brief);
             data.append("video", video);
+            console.log(data);
         }
         else if(type === "youtube"){
             var data = {
@@ -35,7 +39,12 @@ const AddVideo = ({location, history}) => {
     }
 
     useEffect(() =>{
-
+        if(success){
+            history.push("/videos");
+            return () => {
+                dispatch({type:VIDEO_UPLOAD_RESET});
+           }
+        }
     },[uploadPercentage, loading, success, type])
 
     return (
@@ -43,6 +52,7 @@ const AddVideo = ({location, history}) => {
             {!userLogin.userInfo && <Redirect to="/"/>}
             <Row className="justify-content-center">
                 <Col xs={8} md={6}>
+                {error && <Message variant="danger">{error}</Message>}
                     <Form onSubmit={uploadVideoHandler}>
                         <Form.Group controlId="formGridState">
                             <Form.Label>نوع الفيديو</Form.Label>
@@ -87,9 +97,10 @@ const AddVideo = ({location, history}) => {
                         ):null}
                         
                         <div className="text-center">
-                            <Button type="submit" variant="outline-secondary mt-3" disabled={loading}>إرسال</Button>
+                            <Button type="submit" variant="outline-secondary mt-3" disabled={loading}>{loading ? "يرجى الانتظار":"إرسال"}</Button>
                         </div>
                         { loading ? <ProgressBar label={`${uploadPercentage}%`} now={uploadPercentage} variant="success" className="my-3"/>:null}
+                        {message && <Message variant="success">{message}</Message> }
                     </Form>
                 </Col>
             </Row>

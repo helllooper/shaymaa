@@ -3,7 +3,8 @@ import {Container, Row, Col, Form, Button} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import {updateArticle} from "../actions/articleActions";
 import { Redirect } from "react-router-dom";
-import Loading from "../components/Loading";
+import Loading from "./Loading";
+import Message from "./Message";
 import {ARTICLE_UPDATE_RESET} from "../constants/articleConstants";
 
 
@@ -22,30 +23,32 @@ const EditArticle = ({history, match}) => {
         setBrief(article.brief);
         setText(article.text);
         setAuthor(article.author);
-           
-        return () => {
-            return dispatch({type:ARTICLE_UPDATE_RESET});
+        if(successUpdate){
+            history.push(`/article/${article._id}`)
+            return () => {
+                dispatch({type:ARTICLE_UPDATE_RESET});
+           }
         }
-    },[])
+    },[loading, loadingUpdate, success, successUpdate])
 
     const submitHandler = async(e) => {
         e.preventDefault();
-        await dispatch(updateArticle({
+        dispatch(updateArticle({
             _id:article._id,
             title,
             brief,
             text,
             author
         }))
-        history.push(`/article/${article._id}`)
     }
 
     return (
         <Container id="form" className="position-relative py-5">
             {!userLogin.userInfo || !userLogin.userInfo.isAdmin ? <Redirect to="/"/>:null}
-            {loading  ? <Loading />:(
+            {loading || loadingUpdate  ? <Loading />:(
                 <Row className="justify-content-center">
                 <Col xs={8} md={6}>
+                    {(error || errorUpdate) && <Message variant="danger">{error || errorUpdate}</Message>}
                     <Form onSubmit={submitHandler}>
                         <Form.Group controlId = "title">
                             <Form.Label>العنوان</Form.Label>

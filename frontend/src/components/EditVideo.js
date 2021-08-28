@@ -2,9 +2,9 @@ import React, { useState, useEffect} from 'react';
 import {Container, Row, Col, Form, Button, ProgressBar} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom"
-import {VIDEO_DETAILS_RESET} from "../constants/videoConstants";
+import {VIDEO_DETAILS_RESET, VIDEO_UPLOAD_RESET} from "../constants/videoConstants";
 import Loading from "../components/Loading";
-
+import {updateVideo} from "../actions/videoActions"
 
 
 const EditVideo = ({location, history}) => {
@@ -26,23 +26,21 @@ const EditVideo = ({location, history}) => {
 
     const submitHandler = async(e) => {
         e.preventDefault();
-        // await dispatch(updateArticle({
-        //     _id:article._id,
-        //     title,
-        //     brief,
-        //     text,
-        //     author
-        // }))
-        // history.push(`/article/${article._id}`)
+        await dispatch(updateVideo({
+            _id:video._id,
+            title,
+            brief
+        }))
+        history.push("/videos")
     }
 
     return (
-        <Container id="form" className="position-relative py-5">
+        <Container id="form" className="editVideo position-relative py-5">
             {!userLogin.userInfo || !userLogin.userInfo.isAdmin ? <Redirect to="/"/>:null}
             {loading ? <Loading />:(
                 <Row className="justify-content-center">
                 <Col xs={8} md={6}>
-                    <Form >
+                    <Form onSubmit={submitHandler}>
                         <Form.Group controlId = "title">
                             <Form.Label>العنوان</Form.Label>
                             <Form.Control 

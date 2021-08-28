@@ -82,3 +82,51 @@ export const videoDetails = (id) => async (dispatch, getState) => {
     }
     
 }
+
+export const updateVideo = (video) => async(dispatch, getState) => {
+    try{
+    dispatch({
+        type:constants.VIDEO_UPDATE_REQUEST
+    })
+    const {userLogin:{userInfo}} = getState();
+    const config = {
+        headers:{
+            "Content-Type":"application/json",
+            Authorization:`Bearer ${userInfo.token}`
+        }
+    }
+    const {data} = await axios.put(`/api/videos/${video._id}`, video, config)
+    dispatch({
+        type:constants.VIDEO_UPDATE_SUCCESS,
+        payload:data
+    })
+    } catch(error){
+        dispatch({
+            type:constants.VIDEO_UPDATE_FAILED,
+            payload:error.response && error.response.data.message ? error.response.data.message : error.message
+        })
+    }
+}
+
+export const deleteVideo = (id) => async(dispatch, getState) => {
+    try {
+        dispatch({
+            type:constants.VIDEO_DELETE_REQUEST
+        })
+        const {userLogin:{userInfo}} = getState()
+        const config = {
+            headers:{
+                Authorization:`Bearer ${userInfo.token}`
+            }
+        }
+        await axios.delete(`/api/videos/${id}`, config)
+        dispatch({
+            type:constants.VIDEO_DELETE_SUCCESS
+        })
+    } catch(error){
+        dispatch({
+            type:constants.VIDEO_DELETE_FAILED,
+            payload:error.response && error.response.data.message ? error.response.data.message : error.message
+        })
+    }
+}

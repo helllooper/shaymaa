@@ -1,3 +1,4 @@
+const User = require("./userModel");
 const mongoose = require("mongoose");
 
 const videoSchema = new mongoose.Schema({
@@ -22,6 +23,10 @@ const videoSchema = new mongoose.Schema({
         required:true
     }
 
+});
+
+videoSchema.pre('remove', async function(){
+    await User.update({}, { $pull: { videos: { $in: this._id } } }, { multi: true });
 });
 
 module.exports = mongoose.model("Video", videoSchema);

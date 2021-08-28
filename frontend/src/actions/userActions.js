@@ -6,13 +6,19 @@ export const login = (email, password) => async (dispatch) => {
         dispatch({
             type:constants.USER_LOGIN_REQUEST
         })
-        const {data} = await axios.post("/api/users/login", {email, password})
+        const config = {
+            headers:{
+                "Content-Type":"application/json"
+            }
+        }
+        const {data} = await axios.post("/api/users/login", {email, password}, config)
         dispatch({
             type:constants.USER_LOGIN_SUCCESS,
             payload:data
         })
         localStorage.setItem("userInfo", JSON.stringify(data))
     } catch(error) {
+        console.log(error.response)
         dispatch({
             type:constants.USER_LOGIN_FAIL,
             payload:error.response && error.response.data.message ? error.response.data.message:error.message
@@ -31,12 +37,12 @@ export const logout = () => dispatch => {
 }
 
 
-export const register = (name, email, password, secretWord) => async (dispatch) => {
+export const register = (name, email, password,confirmPassword, secretWord) => async (dispatch) => {
     try {
         dispatch({
             type:constants.USER_LOGIN_REQUEST
         })
-        const {data} = await axios.post("/api/users/signup", {name, email, password, secretWord})
+        const {data} = await axios.post("/api/users/signup", {name, email, password,confirmPassword, secretWord})
         dispatch({
             type:constants.USER_LOGIN_SUCCESS,
             payload:data

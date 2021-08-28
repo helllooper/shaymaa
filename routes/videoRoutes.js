@@ -1,41 +1,89 @@
 const express = require("express");
 const asyncHandler = require("express-async-handler");
 const Video = require("../models/videoModel");
+const User = require("../models/userModel");
 const {isAdmin, protect } = require("../middlewares/authMiddleware")
 const multer  = require('multer');
-const { storage, cloudinary } = require("../cloudinary")
-const upload = multer({ storage })
+const path = require("path");
+const {storage, cloudinary} = require("../cloudinary")
+const upload = multer({ fileFilter, storage });
 const router = express.Router();
+const { check, validationResult } = require('express-validator');
+var validator = require('youtube-validator')
 
-router.post("/", protect, upload.single("video"), asyncHandler(async(req, res) => {
-    if(req.file === null){
-        return res.status(400).json({"message":"No file uploaded"})
-    }
+function fileFilter (req, file, cb) {
     const {title, brief} = req.body;
-    console.log(req.file)
+    if(!title){
+        console.log("no title");
+        cb(new Error('قم بكتابة عنوان الفيديو'))
+    }
+    if (!brief){
+        console.log("no brief");
+        cb(new Error('قم بكتابة مقدمة الفيديو'))
+    }
+    cb(null, true);
+  }
+  
+router.post("/", protect, upload.single("video"), asyncHandler(async(req, res) => {
+    if(!req.file){
+        throw new Error("لا يوجد ملف فيديو للتحميل")
+    }
+    const user = await User.findById(req.user._id);
+    const {title, brief} = req.body;
     const video = new Video({
        title,
        brief,
        url:req.file.path,
        filename:req.file.filename
     })
-    await video.save(); 
+    const createdVideo = await video.save();
+    user.videos.push(createdVideo._id);
+    await user.save();
     res.json({
         "message":"Uploaded successfully"
     })
 }))
 
-router.post("/youtube", protect, asyncHandler(async(req, res) => {
+router.post("/youtube",[
+    check("title", "قم بكتابة عنوان الفيديو").not().isEmpty(),
+    check("brief", "قم بكتابة مقدمة الفيديو").not().isEmpty(),
+    check("url", "قم بكتابة رابط الفيديو").not().isEmpty(),
+  ], protect, asyncHandler(async(req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      throw new Error(errors.array()[0].msg);
+    }
+    const user = await User.findById(req.user._id);
     const {title, brief, url} = req.body;
-    const video = new Video({
-       title,
-       brief,
-       url:url
-    })
-    await video.save(); 
-    res.json({
-        "message":"Uploaded successfully"
-    })
+    const urlWithoutProtocol = url.replace(/^https?\:\/\//i, "");
+    console.log(urlWithoutProtocol);
+    validator.validateUrl(urlWithoutProtocol, (response, err) => {
+        if(err) {
+            throw new Error("رابط فيديو اليوتيوب غير صحيح")
+        }
+        else{
+            const uploadVideo = async() => {
+                try{
+                    const video = new Video({
+                        title,
+                        brief,
+                        url:url
+                     })
+                     const createdVideo = await video.save();
+                     user.videos.push(createdVideo._id);
+                     await user.save();
+                     res.json({
+                         "message":"Uploaded successfully"
+                     })
+                }
+                catch(error){
+                    throw new Error("Server Error");
+                }
+            }
+            uploadVideo();
+            
+        }  
+      })
 }))
 
 router.get("/", asyncHandler(async (req, res) => {
@@ -43,7 +91,7 @@ router.get("/", asyncHandler(async (req, res) => {
     const page = req.query.pageNumber || 1;
     const count = await Video.countDocuments();
     const videos = await Video.find({}).limit(pageSize).skip(pageSize * (page - 1));
-    res.json({videos, page, pages:Math.ceil(count / pageSize)});
+    res.json({videos, page:page.parseInt(), pages:Math.ceil(count / pageSize)});
 }))
 
 router.delete("/:id", isAdmin, asyncHandler(async (req, res) => {

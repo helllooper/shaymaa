@@ -3,7 +3,7 @@ import thunk from "redux-thunk";
 import {composeWithDevTools} from "redux-devtools-extension";
 import {articleListReducer, articleCreateReducer, articleDetailsReducer, latestArticlesReducer, articleDeleteReducer, articleUpdateReducer} from "./reducers/articleReducers";
 import { userLoginReducer, userListReducer, getUserReducer, userDeleteReducer } from "./reducers/userReducers";
-import { videoUploadReducer, videoListReducer, videoDetailsReducer } from "./reducers/videoReducers"
+import { videoDeleteReducer ,videoUploadReducer, videoListReducer, videoDetailsReducer } from "./reducers/videoReducers"
 
 const reducer = combineReducers({
     articleList:articleListReducer,
@@ -18,7 +18,9 @@ const reducer = combineReducers({
     articleUpdate:articleUpdateReducer,
     videoUpload:videoUploadReducer,
     videoList:videoListReducer,
-    videoDetails:videoDetailsReducer
+    videoDetails:videoDetailsReducer,
+    videoDelete:videoDeleteReducer,
+
 })
 
 const userInfoFromStorage = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")):null
