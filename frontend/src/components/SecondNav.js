@@ -4,6 +4,8 @@ import { Nav } from 'react-bootstrap';
 import { useDispatch, useSelector } from "react-redux"
 import { NavLink } from "react-router-dom";
 import { logout } from "../actions/userActions"
+import SearchBox from "./SearchBox";
+import { Route } from "react-router-dom";
 
 const SecondNav = ({history, match}) => {
     const dispatch = useDispatch()
@@ -30,6 +32,7 @@ const SecondNav = ({history, match}) => {
                             </Nav>
                         ):null}
                     </Nav>
+                    <Route render={({history}) => <SearchBox phone history={history}/>}/>
                 </Navbar.Collapse>
             </Navbar>
         </>

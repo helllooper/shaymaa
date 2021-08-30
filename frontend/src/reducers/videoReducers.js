@@ -36,7 +36,7 @@ export const videoListReducer = (state={}, action) => {
                 loading:false,
                 videos:action.payload.videos,
                 page:action.payload.page,
-                pages:action.payload.pages
+                count:action.payload.count
             }
         case constants.VIDEO_LIST_FAILED:
             return {

@@ -24,7 +24,6 @@ const articlesSchema = new mongoose.Schema({
         default: Date.now,
         required:true
     }
-
 });
 
 articlesSchema.pre('remove', async function(){

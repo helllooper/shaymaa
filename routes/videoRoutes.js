@@ -89,9 +89,19 @@ router.post("/youtube",[
 router.get("/", asyncHandler(async (req, res) => {
     const pageSize = 5;
     const page = req.query.pageNumber || 1;
-    const count = await Video.countDocuments();
-    const videos = await Video.find({}).limit(pageSize).skip(pageSize * (page - 1));
-    res.json({videos, page:page.parseInt(), pages:Math.ceil(count / pageSize)});
+    const keyword = req.query.keyword ? {
+        title:{
+            $regex:req.query.keyword,
+            $options: "i"
+        },
+        brief:{
+            $regex:req.query.keyword,
+            $options: "i" 
+        }
+    }:{}
+    const count = await Video.countDocuments({...keyword});
+    const videos = await Video.find({}).sort({_id:-1}).limit(pageSize).skip(pageSize * (page - 1));
+    res.json({videos,count,page:parseInt(page)});
 }))
 
 router.delete("/:id", isAdmin, asyncHandler(async (req, res) => {

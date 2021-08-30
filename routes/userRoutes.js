@@ -97,7 +97,7 @@ router.post("/signup",[
 }))
 
 router.get("/admin/:id", isAdmin, asyncHandler(async(req, res) => {
-    const user = await User.findById(req.params.id).populate("articles", "title brief date author").populate("videos");
+    const user = await User.findById(req.params.id).populate({path:"articles", select:"title brief date author", options: { sort: {_id:-1}}}).populate({path:"videos", options: { sort: {_id:-1}}});
     if(user){
         res.status(201).json(user)
     } else {

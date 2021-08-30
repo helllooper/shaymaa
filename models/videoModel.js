@@ -22,7 +22,6 @@ const videoSchema = new mongoose.Schema({
         default: Date.now,
         required:true
     }
-
 });
 
 videoSchema.pre('remove', async function(){

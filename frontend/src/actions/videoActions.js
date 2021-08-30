@@ -39,12 +39,12 @@ export const uploadVideo = (video, type, setUploadPercentage) => async(dispatch,
     }
 }
 
-export const listVideos = (pageNumber) => async dispatch => {
+export const listVideos = (pageNumber, keyword) => async dispatch => {
     try{
         dispatch({
             type:constants.VIDEO_LIST_REQUEST
         });
-        const {data} = await axios.get(`/api/videos?pageNumber=${pageNumber}`);
+        const {data} = await axios.get(`/api/videos?pageNumber=${pageNumber}&keyword=${keyword}`);
         dispatch({
             type:constants.VIDEO_LIST_SUCCESS,
             payload:data

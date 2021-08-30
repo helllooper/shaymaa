@@ -10,8 +10,18 @@ const router = express.Router();
 router.get("/", asyncHandler(async (req, res) => {
     const pageSize = 5;
     const page = req.query.pageNumber || 1;
-    const count = await Article.countDocuments();
-    const articles = await Article.find({}, "title brief author date").limit(pageSize).skip(pageSize * (page - 1));
+    const keyword = req.query.keyword ? {
+        title:{
+            $regex:req.query.keyword,
+            $options: "i"
+        },
+        brief:{
+            $regex:req.query.keyword,
+            $options: "i" 
+        }
+    }:{}
+    const count = await Article.countDocuments({...keyword});
+    const articles = await Article.find({...keyword}, "title brief author date").sort({_id:-1}).limit(pageSize).skip(pageSize * (page - 1));
     res.json({articles,count,page:parseInt(page)});
 }))
 

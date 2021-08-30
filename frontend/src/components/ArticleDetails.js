@@ -26,7 +26,7 @@ const ArticleDetails = ({history, match}) => {
                     <Col md={8}>
                         <h4><span className="fw-bold">{article.author}</span> | {article.date.substring(0, 10)}</h4>
                         <h2 className="py-3 fw-bold">{article.title}</h2>
-                        {parse(article.text)}
+                        <p>{article.text}</p>
                     </Col>
                     <Col md={1}></Col>
                     <Col md={3}>

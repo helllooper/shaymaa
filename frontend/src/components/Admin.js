@@ -18,10 +18,10 @@ const Admin = ({history, match}) => {
        return () => {
            dispatch({type:USER_GET_RESET});
        }
-    },[error, loadingDeleteArticle, errorDeleteArticle, errorDeleteVideo])
+    },[error, loadingDeleteArticle, errorDeleteArticle,loadingDeleteVideo, errorDeleteVideo])
     return (
         <Container id="admin" className="py-5 position-relative text-start">
-            {loading ? <Loading />: (error || errorDeleteArticle || errorDeleteVideo) ? <Message>{error || errorDeleteArticle || errorDeleteVideo}</Message> :(
+            {loading || loadingDeleteArticle || loadingDeleteVideo ? <Loading />: (error || errorDeleteArticle || errorDeleteVideo) ? <Message>{error || errorDeleteArticle || errorDeleteVideo}</Message> :(
                <div>
                    <h1 className="py-3 fw-bold">{user.name}</h1>
                    <h4>Articles:</h4>

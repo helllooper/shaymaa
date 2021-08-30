@@ -75,7 +75,8 @@ a:hover {
 
 #firstNav {
 	z-index: 2;
-    height: 80px;
+  height: 80px;
+  box-sizing: border-box;
 }
 
 #firstNav h1 {
@@ -424,4 +425,21 @@ a:hover {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.page-item.active .page-link {
+  background-color: #97CE82 !important;
+  border-color: #97CE82;
+}
+
+.page-link {
+  color: black;
+}
+
+#articleDetails p{
+white-space:pre-line;
+}
+
+input::placeholder { 
+  text-align: right;
 }
