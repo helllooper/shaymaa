@@ -10,18 +10,28 @@ const router = express.Router();
 router.get("/", asyncHandler(async (req, res) => {
     const pageSize = 5;
     const page = req.query.pageNumber || 1;
-    const keyword = req.query.keyword ? {
-        title:{
-            $regex:req.query.keyword,
-            $options: "i"
-        },
-        brief:{
-            $regex:req.query.keyword,
-            $options: "i" 
-        }
-    }:{}
-    const count = await Article.countDocuments({...keyword});
-    const articles = await Article.find({...keyword}, "title brief author date").sort({_id:-1}).limit(pageSize).skip(pageSize * (page - 1));
+    let count
+    let articles
+    if(req.query.keyword){
+        count = await Article.aggregate().
+        search({
+          text: {
+            query: req.query.keyword,
+            path: ["title", "brief"]
+          }
+        }).count("count");
+        count = count.length > 0 ? count[0].count:0
+        articles = await Article.aggregate().
+        search({
+          text: {
+            query: req.query.keyword,
+            path: ["title", "brief"]
+          }
+        }).sort({_id:-1}).limit(pageSize).skip(pageSize * (page - 1));
+    } else {
+        count = await Article.countDocuments({});
+        articles = await Article.find({}, "title brief author date").sort({_id:-1}).limit(pageSize).skip(pageSize * (page - 1));
+    }
     res.json({articles,count,page:parseInt(page)});
 }))
 

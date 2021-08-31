@@ -25,10 +25,10 @@ const Login = ({history, match}) => {
 
     return (
         <div id="admin" className="d-flex align-items-center">
+        {loading ? <Loading />:(
         <Container id="login" className="postion-relative text-start">
             <h1>Sign In</h1>
             {error && <Message variant="danger">{error}</Message>}
-            {loading ? <Loading />:(
                 <Form onSubmit={submitHandler}>
                 <Form.Group controlId = "email">
                     <Form.Label>Email Adress</Form.Label>
@@ -53,9 +53,8 @@ const Login = ({history, match}) => {
                 <Button type="submit" className="my-3" variant="success">Sign In</Button>
                 <NavLink className="d-block" to="/enterEmail">Forgot password?</NavLink>
             </Form>
-            )}
-            
         </Container>
+        )}
         </div>
     )
 }

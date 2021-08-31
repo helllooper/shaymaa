@@ -44,7 +44,7 @@ export const listVideos = (pageNumber, keyword) => async dispatch => {
         dispatch({
             type:constants.VIDEO_LIST_REQUEST
         });
-        const {data} = await axios.get(`/api/videos?pageNumber=${pageNumber}&keyword=${keyword}`);
+        const {data} = await axios.get(`/api/videos?pageNumber=${pageNumber}${keyword && "&keyword=" + keyword}`);
         dispatch({
             type:constants.VIDEO_LIST_SUCCESS,
             payload:data

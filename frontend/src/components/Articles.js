@@ -4,9 +4,10 @@ import Article from "./Article";
 import {useDispatch, useSelector} from "react-redux";
 import {listArticles} from "../actions/articleActions";
 import Loading from "./Loading";
+import Message from "./Message";
 import Paginate from "./Paginate";
 
-const Articles = ({history, match, keyword, pageNumber}) => {
+const Articles = ({history, match, keyword, pageNumber, setPage}) => {
     const dispatch = useDispatch();
     if(!pageNumber){
       pageNumber = match.params.pageNumber || 1
@@ -21,13 +22,13 @@ const Articles = ({history, match, keyword, pageNumber}) => {
      ,[pageNumber, articleDelete.loading])
     return (
         <Container id="articles" className="position-relative">
-            {loading  ? <Loading />:articles ? (
+            {loading || !articles ? <Loading />:articles.length > 0 ? (
                 <div>
                   <h1 className="py-5">مقالات</h1>
                   {articles.map(article => <Article key={article._id} id={article._id} title={article.title} brief={article.brief} author={article.author} date={article.date} history={history}/>)}
-                  <Paginate list="articles" count={count} page={page} history={history}/>
+                  <Paginate list="articles" count={count} page={page} history={history} setPage={setPage}/>
                 </div>
-            ):null}
+            ):<Message variant="danger">عفوا لا توجد مقالات مطابقة للبحث</Message>}
         </Container>
     )
 }

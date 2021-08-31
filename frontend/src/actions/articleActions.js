@@ -6,7 +6,7 @@ export const listArticles = (pageNumber, keyword) => async dispatch => {
         dispatch({
             type:constants.ARTICLE_LIST_REQUEST
         });
-        const {data} = await axios.get(`/api/articles?pageNumber=${pageNumber}&keyword=${keyword}`);
+        const {data} = await axios.get(`/api/articles?pageNumber=${pageNumber}${keyword ? "&keyword=" + keyword :""}`);
         dispatch({
             type:constants.ARTICLE_LIST_SUCCESS,
             payload:data

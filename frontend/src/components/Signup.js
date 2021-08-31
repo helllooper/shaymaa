@@ -27,10 +27,10 @@ const Signup = ({history, match}) => {
 
     return (
         <div id="admin" className="d-flex align-items-center">
+        {loading ? <Loading />:(
         <Container id="login" className="postion-relative text-start">
             <h1>Sign Up</h1>
             {error && <Message variant="danger">{error}</Message>}
-            {loading ? <Loading />:(
                 <Form onSubmit = {submitHandler}>
             <Form.Group controlId = "name">
                     <Form.Label>Name</Form.Label>
@@ -81,8 +81,8 @@ const Signup = ({history, match}) => {
                 </Form.Group>
                 <Button type="submit" className="my-3" variant="success">Sign In</Button>
             </Form>
-            )}
         </Container>
+        )}
         </div>
     )
 }

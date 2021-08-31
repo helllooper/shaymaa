@@ -8,7 +8,7 @@ const SearchBox = ({history, phone}) => {
     const submitHandler = (e) => {
         e.preventDefault();
         if(keyword.trim()){
-            history.push(`/search/${keyword}`)
+            history.push(`/search?keyword=${keyword}`)
         } else {
             setError("قم بإدخال كلمة أو أكثر للبحث")
         }

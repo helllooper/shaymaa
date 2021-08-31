@@ -17,6 +17,7 @@ import EditVideo from "./components/EditVideo";
 import EnterEmail from "./components/EnterEmail";
 import ScrollToTop from "./components/ScrollToTop";
 import AddVideo from "./components/AddVideo";
+import SearchResults from "./components/SearchResults";
 import { BrowserRouter as Router, Route} from "react-router-dom";
 
 function App() {
@@ -27,8 +28,8 @@ function App() {
         <SecondNav />
         <Route path="/articles" component={Articles} exact/>
         <Route path="/videos" component={Videos} exact/>
-        <Route path="/articles/:pageNumber" component={Articles} exact/>
-        <Route path="/videos/:pageNumber" component={Videos} exact/>
+        <Route path="/articles/:pageNumber" render={({history, match}) => (<Articles history={history} match={match} keyword={null}/>)} exact/>
+        <Route path="/videos/:pageNumber" render={({history, match}) => (<Videos history={history} match={match} keyword={null}/>)} exact/>
         <Route path="/addArticle" component={AddArticle} exact/>
         <Route path="/article/:id" component={ArticleDetails}/>
         <Route path="/login" component={Login} exact/>
@@ -38,7 +39,8 @@ function App() {
         <Route path="/edit" component={EditArticle} exact />
         <Route path="/editVideo" component={EditVideo} exact />
         <Route path="/enterEmail" component={EnterEmail} exact />
-        <Route path="/addVideo" component={AddVideo} exact/>         
+        <Route path="/addVideo" component={AddVideo} exact/>
+        <Route path="/search" component={SearchResults} exact/>        
         <Route path="/" component={Home} exact/>
         <Footer />
     </Router>
