@@ -109,7 +109,7 @@ router.get("/", asyncHandler(async (req, res) => {
         }).sort({_id:-1}).limit(pageSize).skip(pageSize * (page - 1));
     } else {
         count = await Video.countDocuments({});
-        videos = await Video.find({}, "title brief author date").sort({_id:-1}).limit(pageSize).skip(pageSize * (page - 1));
+        videos = await Video.find({}, "title brief author url date").sort({_id:-1}).limit(pageSize).skip(pageSize * (page - 1));
     }
     res.json({videos,count,page:parseInt(page)});
 }))

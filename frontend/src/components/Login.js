@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react';
-import {Container, Form, Button, Nav} from "react-bootstrap";
+import {Container, Form, Button} from "react-bootstrap";
 import { useDispatch, useSelector} from "react-redux";
 import { login } from "../actions/userActions";
 import { NavLink } from "react-router-dom";
@@ -21,7 +21,7 @@ const Login = ({history, match}) => {
         if(success){
             history.push("/");
           }
-    }, [loading, userInfo, error, success])
+    }, [history, loading, userInfo, error, success])
 
     return (
         <div id="admin" className="d-flex align-items-center">

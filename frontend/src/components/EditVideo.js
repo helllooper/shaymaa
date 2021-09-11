@@ -1,8 +1,8 @@
 import React, { useState, useEffect} from 'react';
-import {Container, Row, Col, Form, Button, ProgressBar} from "react-bootstrap";
+import {Container, Row, Col, Form, Button} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom"
-import {VIDEO_DETAILS_RESET, VIDEO_UPLOAD_RESET} from "../constants/videoConstants";
+import {VIDEO_DETAILS_RESET} from "../constants/videoConstants";
 import Loading from "../components/Loading";
 import {updateVideo} from "../actions/videoActions"
 
@@ -12,17 +12,17 @@ const EditVideo = ({location, history}) => {
     const [brief, setBrief] = useState("");
     const dispatch = useDispatch();
     const userLogin = useSelector(state => state.userLogin)
-    const {loading, success, video, error} = useSelector(state => state.videoDetails)
+    const {loading, video} = useSelector(state => state.videoDetails)
   
 
-    useEffect(async() => {
+    useEffect(() => {
         setTitle(video.title);
         setBrief(video.brief);
            
         return () => {
             return dispatch({type:VIDEO_DETAILS_RESET});
         }
-    },[])
+    },[dispatch, video.title, video.brief])
 
     const submitHandler = async(e) => {
         e.preventDefault();

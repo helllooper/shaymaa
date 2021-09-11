@@ -19,16 +19,16 @@ const SecondNav = ({history, match}) => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="w-100 d-inline-flex justify-content-center">
-                        <Nav.Link className="px-4 order-md-4"><NavLink to="/">الرئيسية</NavLink></Nav.Link>
-                        <Nav.Link className="px-4 order-md-3"><NavLink to={`/articles/${1}`} >مقالات</NavLink></Nav.Link>
-                        <Nav.Link className="px-4 order-md-2"><NavLink to="/videos/1">فيديوهات</NavLink></Nav.Link>
-                        <Nav.Link className="px-4 order-md-1"><NavLink to="#">رؤيتنا</NavLink></Nav.Link>
+                        <Nav.Item className="px-4 order-md-4"><NavLink className="nav-link" to="/">الرئيسية</NavLink></Nav.Item>
+                        <Nav.Item className="px-4 order-md-3"><NavLink className="nav-link" to={`/articles/${1}`} >مقالات</NavLink></Nav.Item>
+                        <Nav.Item className="px-4 order-md-2"><NavLink className="nav-link" to="/videos/1">فيديوهات</NavLink></Nav.Item>
+                        <Nav.Item className="px-4 order-md-1"><NavLink className="nav-link" to="#">رؤيتنا</NavLink></Nav.Item>
                         {userLogin.userInfo ? (
                             <Nav className="d-flex">
-                            <Nav.Link className="px-4 order-md-2"><NavLink to="/addArticle">إضافة مقالة</NavLink></Nav.Link>
-                            <Nav.Link className="px-4 order-md-1"><NavLink to="/addVideo">إضافة فيديو</NavLink></Nav.Link>
-                            <Nav.Link className="px-4 order-md-0"><NavLink to="#" onClick ={logoutHandler}> خروج </NavLink></Nav.Link>
-                            {userLogin.userInfo.isAdmin && <Nav.Link className="px-4 order-md-0"><NavLink to="/superadmin">SuperAdmin</NavLink></Nav.Link>}
+                            <Nav.Item className="px-4 order-md-2"><NavLink className="nav-link" to="/addArticle">إضافة مقالة</NavLink></Nav.Item>
+                            <Nav.Item className="px-4 order-md-1"><NavLink className="nav-link" to="/addVideo">إضافة فيديو</NavLink></Nav.Item>
+                            <Nav.Item className="px-4 order-md-0"><NavLink className="nav-link" to="#" onClick ={logoutHandler}> خروج </NavLink></Nav.Item>
+                            {userLogin.userInfo.isAdmin && <Nav.Item className="px-4 order-md-0"><NavLink to="/superadmin">SuperAdmin</NavLink></Nav.Item>}
                             </Nav>
                         ):null}
                     </Nav>

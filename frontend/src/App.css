@@ -2,6 +2,10 @@ body {
     text-align: right;
     font-family: 'Cairo', sans-serif;
 }
+p {
+  font-size: 18px !important;
+}
+
 a {
   text-decoration: none !important;
 }
@@ -66,6 +70,10 @@ a:hover {
     #form {
         height: 71vh;
     }
+
+    #firstNav h1 {
+      font-size: 1.2rem;
+  }
   }
 
 .picContainer {
@@ -80,13 +88,17 @@ a:hover {
 }
 
 #firstNav h1 {
-    color: #97CE82;
+    color:#203198;
+}
+
+#firstNav img {
+  width: 50px;
 }
 
 #secondNav {
     z-index: 2;
     top:80px;
-    background-color: #97CE82;
+    background-color: #203198;
 }
 
 #secondNav a {
@@ -102,7 +114,6 @@ a:hover {
   }
   
   .element {
-    border:30px solid #A0D38C;
     background-size: cover;
     border-radius: 50%;
     position: absolute;
@@ -115,20 +126,23 @@ a:hover {
   #element1 {
     background-image: url("./circle3.jpg");
     background-position: 50% 0%;
+    border:30px solid #468FEA;
   }
 
   #element2 {
     background-image: url("./circle2.jpg");
     background-position: 50% 0%;
+    border:30px solid#2871CC;
   }
 
   #element3 {
     background-image: url("./circle1.jpg");
     background-position: 50% 0%;
+    border:30px solid#003F9A
   }
 
  .aim {
-     color: #97CE82 ;
+     color: #003F9A ;
  }
 
  .test {
@@ -151,15 +165,38 @@ a:hover {
     }
  }
 
+
+
  .portion1 button, #cards button, #form button {
      width: 200px;
      padding: 12px 0 12px 0;
-     border-color: #A0D38C;
      border-radius: 0;
      font-size: 18px;
      transition: all 500ms;
      
  }
+
+ #cardButton1{
+  border-color :  #ABC32F;
+ }
+ #cardButton1:hover {
+  background-color: #ABC32F;
+  color: white;
+}
+ #cardButton2 {
+  border-color : #FDFF4D;
+}
+#cardButton2:hover {
+  background-color: #FDFF4D;
+  color: white;
+}
+#cardButton3{
+  border-color : #FF9900;
+}
+#cardButton3:hover {
+  background-color: #FF9900;
+  color: white;
+}
 
  .portion1 button:hover, #form button:hover {
      background-color: #A0D38C;;
@@ -185,8 +222,8 @@ a:hover {
      height: 300px;
      background-position: center;
      top:136px;
-     border-top: 30px solid #A0D38C ;
-     border-bottom: 30px solid #A0D38C ;
+     border-top: 30px solid #203198 ;
+     border-bottom: 30px solid #203198 ;
  }
 
  #cards {
@@ -198,18 +235,29 @@ a:hover {
  }
 
  .card-header {
-     background-color: #E96D64;
      color: white;
  }
 
- #cards button:hover {
+ #card-header-1 {
+   background-color: #ABC32F
+ }
+
+ #card-header-2 {
+  background-color: #FDFF4D;
+}
+
+#card-header-3 {
+  background-color: #FF9900;
+}
+
+ /* #cards button:hover {
      background-color: #E96D64;
      color: white;
  }
 
  #cards button {
     border-color:  #E96D64;
- }
+ } */
 
  .card {
      opacity: 0;
@@ -217,7 +265,7 @@ a:hover {
 
  #video {
      top:136px;
-     border-bottom: 5px solid #A0D38C;
+     border-bottom: 5px solid #203198;
  }
 
  #videoBackground {
@@ -238,7 +286,7 @@ a:hover {
  }
 
  .carousel-text {
-    background-color: #A0D38C;
+    background-color: #468FEA;
     padding: 20%;
     font-size: 20px;
  }
@@ -256,7 +304,7 @@ a:hover {
      height: 74px;
      top:136px;
      width: 100%;
-     background-color: #E96D64;
+     background-color: #203198;
      color: white;
      z-index: 2;
  }
@@ -358,6 +406,8 @@ a:hover {
  }
 
  #loading {
+   z-index: 3;
+   background-color: white;
    top:0;
    left:0;
    bottom:0;
@@ -442,4 +492,17 @@ white-space:pre-line;
 
 input::placeholder { 
   text-align: right;
+}
+
+#noResults {
+  top: 136px;
+  min-height: 80vh; 
+}
+
+#message {
+  top: 136px;
+}
+
+#searchBox input {
+  border: 2px solid #157347
 }

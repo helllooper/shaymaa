@@ -4,27 +4,27 @@ import { useDispatch, useSelector } from "react-redux"
 import { articleDetails, getLatestArticles } from "../actions/articleActions"
 import Loading from "./Loading";
 import {ARTICLE_DETAILS_RESET, LATEST_ARTICLES_RESET} from "../constants/articleConstants"
-import parse from 'html-react-parser';
 import {LinkContainer} from "react-router-bootstrap"
 
 const ArticleDetails = ({history, match}) => {
     const dispatch = useDispatch();
-    const {loading, article, error} = useSelector(state => state.articleDetails)
+    const {loading, article} = useSelector(state => state.articleDetails)
     const latestArticles = useSelector(state => state.latestArticles)
     useEffect(() => {
+        console.log(article);
         dispatch(articleDetails(match.params.id));
         dispatch(getLatestArticles());
         return () => {
             dispatch({type:ARTICLE_DETAILS_RESET})
             dispatch({type:LATEST_ARTICLES_RESET})
         }
-    },[match.params.id])
+    },[dispatch, match.params.id])
     return (
         <Container fluid id="articleDetails" className="position-relative pt-3 ">
-            {loading || !latestArticles ? <Loading />: article && latestArticles.articles? (
+            {loading || !article || latestArticles.loading || !latestArticles.articles? <Loading />: (
                 <Row className="d-flex flex-row-reverse">
                     <Col md={8}>
-                        <h4><span className="fw-bold">{article.author}</span> | {article.date.substring(0, 10)}</h4>
+                        <h4><span className="fw-bold">{article.author}</span> | {article.date && article.date.substring(0, 10)}</h4>
                         <h2 className="py-3 fw-bold">{article.title}</h2>
                         <p>{article.text}</p>
                     </Col>
@@ -43,7 +43,7 @@ const ArticleDetails = ({history, match}) => {
                         </div>
                     </Col>
                 </Row>
-            ):null}
+            )}
         </Container>
     )
 }

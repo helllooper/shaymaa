@@ -24,12 +24,11 @@ export const videoUploadReducer = (state={}, action) => {
     }
 } 
 
-export const videoListReducer = (state={}, action) => {
+export const videoListReducer = (state={loading:false}, action) => {
     switch(action.type){
         case constants.VIDEO_LIST_REQUEST:
             return {
-                loading:true,
-                videos:[]
+                loading:true
             }
         case constants.VIDEO_LIST_SUCCESS:
             return {
@@ -42,6 +41,10 @@ export const videoListReducer = (state={}, action) => {
             return {
                 loading:false,
                 error:action.payload
+            }
+        case constants.VIDEO_LIST_RESET:
+            return {
+                loading:false
             }
         default:
             return state;

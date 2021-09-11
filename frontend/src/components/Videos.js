@@ -5,32 +5,47 @@ import {useDispatch, useSelector} from "react-redux";
 import {listVideos} from "../actions/videoActions";
 import Loading from "./Loading";
 import Paginate from "./Paginate";
-import Message from "./Message"
+import Message from "./Message";
+import usePrevious from "./usePrevious";
 
-const Videos = ({history, match, keyword, pageNumber, setPage}) => {
+
+
+const Videos = ({history, match, keyword, pageNumber, setPage, setNoResults}) => {
     const dispatch = useDispatch();
     if(!pageNumber){
         pageNumber = match.params.pageNumber || 1
     }
-    const {loading, videos, error, page, count} = useSelector(state => state.videoList)
+    const previousPageNumber = usePrevious(pageNumber);
+    const {loading, videos, page, count} = useSelector(state => state.videoList)
     const videoDelete = useSelector(state => state.videoDelete)
+    
     useEffect(() => {
+        const setVideosResults = async () => {
+            if(!videos || previousPageNumber !== pageNumber){
+                await dispatch(listVideos(pageNumber,keyword));
+            }
+            if(setNoResults && videos && videos.length === 0){
+              setNoResults(true);
+            }
+        }
         if(!videoDelete.loading){
-            dispatch(listVideos(pageNumber, keyword));
-          }
-         
+            setVideosResults();
+        }   
     }
-     ,[pageNumber, videoDelete.loading])
+     ,[ dispatch, videos,setNoResults, keyword, pageNumber, videoDelete.loading])
     return (
+        <>
+        {loading || !videos  ? <Loading />:videos.length > 0 ? (
         <Container id="articles" className="position-relative">
-            {loading || !videos  ? <Loading />:videos.length > 0 ? (
                 <div>
                   <h1 className="py-5">فيديوهات</h1>
                   {videos.map(video => <Video key={video._id} id={video._id}  title={video.title} brief={video.brief} url={video.url} date={video.date} history={history}/>)}
                   <Paginate list="videos" count={count} page={page} history={history} setPage={setPage}/>
                 </div>
-            ):<Message variant="danger">عفوا لا توجد فيديوهات مطابقة للبحث</Message>}
+            
         </Container>
+        ):<Message variant="danger">عفوا لا توجد فيديوهات مطابقة لنتيجة البحث</Message>}
+        </>
     )
 }
 

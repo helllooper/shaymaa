@@ -9,7 +9,7 @@ const FirstNav = () => {
                   <Route render={({history}) => <SearchBox history={history}/>}/>
                   <Nav>
                       <Nav.Link id="pageTitle" active>
-                          <h1 className='fw-bold'>أطفالنا و السكر</h1>
+                          <h1 className='fw-bold'>Children With Diabetes <img alt="" src="images/brotherhood.png" className="img-fluid" /> أطفالنا و السكر</h1>
                       </Nav.Link>
                   </Nav>
           </Navbar>  

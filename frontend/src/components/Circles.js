@@ -8,8 +8,9 @@ const Circles = () => {
     const col1 = useRef();
     const col2 = useRef();
     const col3 = useRef();
-    const cols = [col1, col2, col3];
+    
     useEffect(() => {
+        const cols = [col1, col2, col3];
         cols.forEach((el) => {
             gsap.to(el.current,{
                 css:{"transform":"translateX(0)"},

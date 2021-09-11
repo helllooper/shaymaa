@@ -1,6 +1,5 @@
 import React from 'react'
 import {Row, Col, Button} from "react-bootstrap"
-import { LinkContainer } from "react-router-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import ReactPlayer from 'react-player';
 import {deleteVideo ,videoDetails} from "../actions/videoActions"
@@ -21,7 +20,7 @@ const Video = (props) => {
     return (
         <Row id="article" className="flex-row-reverse py-3">
            <Col xs={12} lg={3}>
-                <h3 className="fw-bold px-0 py-3">{props.title}</h3>
+                <h3 className="fw-bold px-0">{props.title}</h3>
                 <p>{props.date.substring(0, 10)}</p>
            </Col>
            <Col xs={12} lg={5}>

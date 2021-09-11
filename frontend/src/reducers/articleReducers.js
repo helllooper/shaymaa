@@ -1,11 +1,10 @@
 import * as constants from "../constants/articleConstants";
 
-export const articleListReducer = (state={}, action) => {
+export const articleListReducer = (state={loading:false}, action) => {
     switch(action.type){
         case constants.ARTICLE_LIST_REQUEST:
             return {
-                loading:true,
-                articles:[]
+                loading:true
             }
         case constants.ARTICLE_LIST_SUCCESS:
             return {
@@ -18,6 +17,11 @@ export const articleListReducer = (state={}, action) => {
             return {
                 loading:false,
                 error:action.payload
+            }
+
+        case constants.ARTICLE_LIST_RESET:
+            return {
+                loading:false
             }
         default:
             return state;
@@ -52,8 +56,7 @@ export const articleDetailsReducer = (state={article:{}}, action) => {
       switch(action.type){
           case constants.ARTICLE_DETAILS_REQUEST:
               return {
-                  loading:true,
-                  ...state
+                  loading:true
               }
           case constants.ARTICLE_DETAILS_SUCCESS:
               return {
@@ -74,12 +77,11 @@ export const articleDetailsReducer = (state={article:{}}, action) => {
       }
   }
 
-  export const latestArticlesReducer = (state=null, action) => {
+  export const latestArticlesReducer = (state={}, action) => {
     switch(action.type){
         case constants.LATEST_ARTICLES_REQUEST:
             return {
-                loading:true,
-                ...state
+                loading:true
             }
         case constants.LATEST_ARTICLES_SUCCESS:
             return {
@@ -92,7 +94,7 @@ export const articleDetailsReducer = (state={article:{}}, action) => {
                 error:action.payload
             }
         case constants.LATEST_ARTICLES_RESET:
-            return null
+            return {}
         default:
             return state;
     }

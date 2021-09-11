@@ -18,7 +18,7 @@ const SuperAdmin = () => {
     useEffect(() => {
         dispatch(listUsers());
     }
-    ,[deleteUserState.loading, deleteUserState.success])
+    ,[dispatch, deleteUserState.loading, deleteUserState.success])
 
     const deleteUserHandler = (id) => {
         if(window.confirm("Are you sure?")){

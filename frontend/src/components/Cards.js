@@ -8,8 +8,8 @@ const Cards = () => {
     const card1 = useRef();
     const card2 = useRef();
     const card3 = useRef();
-    const cards = [card1, card2, card3];
     useEffect(() => {
+        const cards = [card1, card2, card3];
         cards.forEach((el) => {
             gsap.to(el.current,{
                 opacity:1,
@@ -27,7 +27,7 @@ const Cards = () => {
             <Row>
                 <Col md={4}>
                     <Card ref={card1}>
-                        <Card.Header>
+                        <Card.Header id="card-header-1">
                             <h2 className="text-center fw-bold py-4">معامل الكربوهيدرات</h2>
                         </Card.Header>
                         <Card.Body>
@@ -35,13 +35,13 @@ const Cards = () => {
                             وهذا يساعدنا فى الوصول ل سكر مظبوط ويجعلنا نتجنب السكر العالى أو السكر المنخفض ( نوبات الهبوط )
                             السكرى المعتمد على الأنسولين السريع والقاعدى لازم يعرف أساسيات التعامل مع السكري ومن بينها معامل الكارب ومعامل التصحيح
                             </p>
-                            <Button variant="outilne-secondary fw-bold" size="lg">اقرأ المزيد</Button>
+                            <Button id="cardButton1" variant="outilne-secondary fw-bold" size="lg">اقرأ المزيد</Button>
                         </Card.Body>                        
                     </Card>
                 </Col>
                 <Col md={4}>
                     <Card ref={card2}>
-                        <Card.Header>
+                        <Card.Header id="card-header-2">
                             <h2 className="text-center fw-bold py-4">معامل تصحيح الارتفاع</h2>
                         </Card.Header>
                         <Card.Body>
@@ -49,13 +49,13 @@ const Cards = () => {
                             وهذا يساعدنا فى الوصول ل سكر مظبوط ويجعلنا نتجنب السكر العالى أو السكر المنخفض ( نوبات الهبوط )
                             السكرى المعتمد على الأنسولين السريع والقاعدى لازم يعرف أساسيات التعامل مع السكري ومن بينها معامل الكارب ومعامل التصحيح
                             </p>
-                            <Button variant="outilne-secondary fw-bold" size="lg">اقرأ المزيد</Button>
+                            <Button id="cardButton2" variant="outilne-secondary fw-bold" size="lg">اقرأ المزيد</Button>
                         </Card.Body>                        
                     </Card>
                 </Col>
                 <Col md={4}>
                     <Card ref={card3}>
-                        <Card.Header>
+                        <Card.Header id="card-header-3">
                             <h2 className="text-center fw-bold py-4">معامل الرفع</h2>
                         </Card.Header>
                         <Card.Body>
@@ -63,7 +63,7 @@ const Cards = () => {
                             وهذا يساعدنا فى الوصول ل سكر مظبوط ويجعلنا نتجنب السكر العالى أو السكر المنخفض ( نوبات الهبوط )
                             السكرى المعتمد على الأنسولين السريع والقاعدى لازم يعرف أساسيات التعامل مع السكري ومن بينها معامل الكارب ومعامل التصحيح
                             </p>
-                            <Button variant="outilne-secondary fw-bold" size="lg">اقرأ المزيد</Button>
+                            <Button id="cardButton3" variant="outilne-secondary fw-bold" size="lg">اقرأ المزيد</Button>
                         </Card.Body>                        
                     </Card>
                 </Col>

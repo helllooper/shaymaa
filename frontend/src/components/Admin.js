@@ -1,4 +1,4 @@
-import React , {useState, useEffect}from 'react';
+import React , { useEffect}from 'react';
 import { Container} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux"
 import Article from "./Article";
@@ -11,14 +11,14 @@ import {USER_GET_RESET} from "../constants/userConstants"
 const Admin = ({history, match}) => {
     const dispatch = useDispatch();
     const {loading, user, error} = useSelector(state => state.userDetails)
-    const {loading:loadingDeleteArticle ,success:successDeleteArticle, error:errorDeleteArticle} = useSelector(state => state.articleDelete)
-    const {loading:loadingDeleteVideo ,success:successDeleteVideo, error:errorDeleteVideo} = useSelector(state => state.videoDelete)
+    const {loading:loadingDeleteArticle , error:errorDeleteArticle} = useSelector(state => state.articleDelete)
+    const {loading:loadingDeleteVideo , error:errorDeleteVideo} = useSelector(state => state.videoDelete)
     useEffect(() => {
        dispatch(getUser(match.params.id))
        return () => {
            dispatch({type:USER_GET_RESET});
        }
-    },[error, loadingDeleteArticle, errorDeleteArticle,loadingDeleteVideo, errorDeleteVideo])
+    },[dispatch,match.params.id, error, loadingDeleteArticle, errorDeleteArticle,loadingDeleteVideo, errorDeleteVideo])
     return (
         <Container id="admin" className="py-5 position-relative text-start">
             {loading || loadingDeleteArticle || loadingDeleteVideo ? <Loading />: (error || errorDeleteArticle || errorDeleteVideo) ? <Message>{error || errorDeleteArticle || errorDeleteVideo}</Message> :(

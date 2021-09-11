@@ -15,10 +15,10 @@ const EditArticle = ({history, match}) => {
     const [author, setAuthor] = useState("");
     const dispatch = useDispatch();
     const {loading, success, article, error} = useSelector(state => state.articleDetails)
-    const {loading:loadingUpdate, error:errorUpdate, success:successUpdate, article:updatedArticle} = useSelector(state => state.articleUpdate)
+    const {loading:loadingUpdate, error:errorUpdate, success:successUpdate} = useSelector(state => state.articleUpdate)
     const userLogin = useSelector(state => state.userLogin)
     
-    useEffect(async() => {
+    useEffect(() => {
         setTitle(article.title);
         setBrief(article.brief);
         setText(article.text);
@@ -29,7 +29,7 @@ const EditArticle = ({history, match}) => {
                 dispatch({type:ARTICLE_UPDATE_RESET});
            }
         }
-    },[loading, loadingUpdate, success, successUpdate])
+    },[dispatch, history, article._id, article.title, article.brief, article.text, article.author, loading, loadingUpdate, success, successUpdate])
 
     const submitHandler = async(e) => {
         e.preventDefault();

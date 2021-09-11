@@ -115,7 +115,7 @@ export const deleteUser = (id) => async(dispatch, getState) => {
                 Authorization:`Bearer ${userInfo.token}`
             }
         }
-        const {data} = await axios.delete(`/api/users/delete/${id}`, config)
+         await axios.delete(`/api/users/delete/${id}`, config)
         dispatch({
             type:constants.USER_DELETE_SUCCESS
         })

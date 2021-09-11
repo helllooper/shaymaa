@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react';
-import {Container, Form, Button, Row, Col} from "react-bootstrap";
+import {Container, Form, Button} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../actions/userActions"
 import Loading from "./Loading";
@@ -18,7 +18,7 @@ const Signup = ({history, match}) => {
         if(success){
             history.push("/");
           }
-    }, [loading, userInfo, error, success])
+    }, [history, loading, userInfo, error, success])
 
     const submitHandler = async (e) => {
         e.preventDefault();

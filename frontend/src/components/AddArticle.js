@@ -23,7 +23,7 @@ const AddArticle = ({location, history}) => {
                 dispatch({type:ARTICLE_CREATE_RESET});
            }
         }
-    }, [loading, error, success])
+    }, [dispatch, history, loading, error, success])
 
     const submitHandler = async (e) => {
         e.preventDefault();

@@ -60,7 +60,7 @@ router.post("/", [
 }))
 
 router.get("/latest" , asyncHandler(async(req, res) => {
-    const latestArticles = await Article.find({}, "title").sort({ _id: -1 }).limit(2)
+    const latestArticles = await Article.find({}, "title").sort({ _id: -1 }).limit(3)
     if(latestArticles){
         res.json(latestArticles);
     }else {

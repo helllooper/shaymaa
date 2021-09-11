@@ -7,8 +7,10 @@ export const uploadVideo = (video, type, setUploadPercentage) => async(dispatch,
             type:constants.VIDEO_UPLOAD_REQUEST
     })
     const {userLogin:{userInfo}} = getState();
+    let data
+    let config = null
     if(type === "cloudinary"){
-        const config = {
+          config = {
             headers:{
                 "Content-Type":"multipart/form-data",
                 Authorization:`Bearer ${userInfo.token}`
@@ -17,14 +19,14 @@ export const uploadVideo = (video, type, setUploadPercentage) => async(dispatch,
                setUploadPercentage(parseInt(Math.round((progressEvent.loaded * 100)/progressEvent.total)))
             }
         }
-        var {data} = await axios.post("/api/videos", video, config)
+         ({data} = await axios.post("/api/videos", video, config))
     } else if (type === "youtube") {
-        const config = {
+          config = {
             headers:{
                 Authorization:`Bearer ${userInfo.token}`
             }
         }
-        var {data} = await axios.post("/api/videos/youtube", video, config)
+         ({data} = await axios.post("/api/videos/youtube", video, config))
     }
     dispatch({
         type:constants.VIDEO_UPLOAD_SUCCESS,

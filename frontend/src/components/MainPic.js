@@ -10,7 +10,7 @@ const MainPic = () => {
     return (
           <Container fluid className="picContainer position-relative">
               <Row> 
-                <img ref={image} className="mainPic img-fluid px-0" src="/images/kids.jpg" />
+                <img alt="" ref={image} className="mainPic img-fluid px-0" src="/images/kids.jpg" />
               </Row>
               
           </Container>

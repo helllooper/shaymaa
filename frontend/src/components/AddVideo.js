@@ -21,15 +21,16 @@ const AddVideo = ({location, history}) => {
 
     const uploadVideoHandler = async (e) => {
         e.preventDefault();
+        let data;
         if(type === "cloudinary"){
-            var data = new FormData();
+            data = new FormData();
             data.append("title", title);
             data.append("brief", brief);
             data.append("video", video);
             console.log(data);
         }
         else if(type === "youtube"){
-            var data = {
+                data = {
                 title,
                 brief,
                 url
@@ -45,7 +46,7 @@ const AddVideo = ({location, history}) => {
                 dispatch({type:VIDEO_UPLOAD_RESET});
            }
         }
-    },[uploadPercentage, loading, success, type])
+    },[dispatch, history, uploadPercentage, loading, success, type])
 
     return (
         <Container id="form" className="position-relative py-5">
