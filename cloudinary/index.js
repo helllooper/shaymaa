@@ -16,4 +16,12 @@ const storage = new CloudinaryStorage({
     }
 })
 
-module.exports = {cloudinary, storage}
+const authorsPicsStorage = new CloudinaryStorage({
+    cloudinary,
+    params:{
+        folder:"Shaymaa",
+        allowedFormats:["jpg", "jpeg", "png"]
+    }
+})
+
+module.exports = {cloudinary, storage, authorsPicsStorage}

@@ -2,6 +2,7 @@ import React, { useState, useEffect} from 'react';
 import {Container, Row, Col, Form, Button} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import {createArticle} from "../actions/articleActions";
+import {listAuthors} from "../actions/authorActions"
 import { Redirect } from "react-router-dom"
 import Loading from "./Loading";
 import Message from "./Message";
@@ -16,6 +17,7 @@ const AddArticle = ({location, history}) => {
     const dispatch = useDispatch();
     const userLogin = useSelector(state => state.userLogin)
     const {loading, success, error} = useSelector(state => state.articleCreate)
+    const {loading:loadingAuthors, success:successAuthors,authors, error:errorAuthors} = useSelector(state=>state.authorList)
     useEffect(() => {
         if(success){
             history.push("/articles");
@@ -23,6 +25,7 @@ const AddArticle = ({location, history}) => {
                 dispatch({type:ARTICLE_CREATE_RESET});
            }
         }
+        dispatch(listAuthors());
     }, [dispatch, history, loading, error, success])
 
     const submitHandler = async (e) => {
@@ -38,7 +41,7 @@ const AddArticle = ({location, history}) => {
     return (
         <Container id="form" className="position-relative py-5">
             {!userLogin.userInfo && <Redirect to="/"/>}
-            {loading ? <Loading />:(
+            {loading || loadingAuthors ? <Loading />:(
                 <Row className="justify-content-center">
                 <Col xs={8} md={6}>
                     {error && <Message variant="danger">{error}</Message>}
@@ -68,13 +71,15 @@ const AddArticle = ({location, history}) => {
                             onChange={(e) => setText(e.target.value)}>
                             </Form.Control>
                         </Form.Group>
-                        <Form.Group controlId = "author">
+                        {/* <Form.Select onChange={(e)=>setAuthor(e.target.value)}>
+                            <option>الكاتب</option>
+                            {authors && authors.map(item => <option key={item._id} value={item.name}>{item.name}</option>)}
+                        </Form.Select> */}
+                        <Form.Group controlId="formGridState">
                             <Form.Label>الكاتب</Form.Label>
-                            <Form.Control 
-                            type="text"  
-                            value={author} 
-                            onChange={(e) => setAuthor(e.target.value)}>
-                            </Form.Control>
+                            <select dir="rtl" value={author} onChange={(e) => setAuthor(e.target.value)}  className="form-select" aria-label="Default select example">
+                            {authors && authors.map(item => <option key={item._id} value={item.name}>{item.name}</option>)}
+                            </select>
                         </Form.Group>
                         <div className="text-center">
                             <Button type="submit" variant="outline-secondary mt-3">إرسال</Button>

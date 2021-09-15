@@ -1,6 +1,7 @@
 const express = require("express");
 const asyncHandler = require("express-async-handler");
 const Article = require("../models/articlesModel");
+const Author = require("../models/authorModel");
 const { isAdmin, protect } = require("../middlewares/authMiddleware")
 const User = require("../models/userModel");
 const { check, validationResult } = require('express-validator');
@@ -47,6 +48,13 @@ router.post("/", [
     }
     const user = await User.findById(req.user._id);
     const {title, brief, text, author} = req.body
+    const authorOfArticle = await Author.findOne({name:author})
+    if(!user){
+      throw new Error("Not Authorized");
+    }
+    if(!authorOfArticle){
+      throw new Error("Author not found");
+    }
     const article = new Article({
        title,
        brief,
@@ -55,7 +63,9 @@ router.post("/", [
     })
     const createdArticle = await article.save();
     user.articles.push(createdArticle._id);
+    author.articles.push(createdArticle._id)
     await user.save();
+    await author.save();
     res.json(createdArticle);
 }))
 
@@ -106,7 +116,14 @@ router.put("/:id",[
         article.title = title;
         article.brief = brief;
         article.text = text;
-        article.author = author;
+        if(article.author !== author){
+          const oldAuthor = await Author.findOne({name:article.author});
+          oldAuthor.articles.filter(item => item._id !== article._id)
+          await oldAuthor.save();
+          const newAuthor = await Author.findOne({name:author})
+          newAuthor.articles.push(article._id)
+        }
+        article.author = author
         const updatedArticle = await article.save();
         res.json(updatedArticle);
     } else {

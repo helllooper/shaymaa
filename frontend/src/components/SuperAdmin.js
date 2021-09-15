@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { Container, Nav , Button, Form} from "react-bootstrap";
 import { useDispatch, useSelector} from "react-redux";
 import {listUsers} from "../actions/userActions"
+import {listAuthors} from "../actions/authorActions"
 import Loading from "./Loading";
 import { Redirect } from "react-router-dom";
 import { NavLink } from "react-router-dom";
@@ -14,9 +15,11 @@ const SuperAdmin = () => {
     const [loadingSecretWord, setLoadingSecretWord] = useState(false);
     const userLogin = useSelector(state => state.userLogin)
     const {loading, users} = useSelector(state => state.userList)
+    const {loading:loadingAuthors, success:successAuthors,authors, error:errorAuthors} = useSelector(state=>state.authorList)
     const deleteUserState = useSelector(state => state.deleteUser)
     useEffect(() => {
         dispatch(listUsers());
+        dispatch(listAuthors());
     }
     ,[dispatch, deleteUserState.loading, deleteUserState.success])
 
@@ -49,9 +52,9 @@ const SuperAdmin = () => {
     return (
         <Container id="superAdmin" className=" pt-5 text-start position-relative">
             {!userLogin.userInfo || !userLogin.userInfo.isAdmin ? <Redirect to="/"/>:null}
-            <h3>Admins:</h3>
-            {loading || deleteUserState.loading ? <Loading />: users ? (
+            {loading || loadingAuthors || deleteUserState.loading ? <Loading />: users && authors ? (
             <div>
+                <h3>Admins:</h3>
                 <Nav defaultActiveKey="/home" className="flex-column">
                 {users.map((user) => (
                     <div className="py-2">
@@ -60,6 +63,16 @@ const SuperAdmin = () => {
                     </div>
                     ))}
                 </Nav>
+                <h3>Authors:</h3>
+                <Nav defaultActiveKey="/home" className="flex-column">
+                {authors.map((item) => (
+                    <div className="py-2">
+                        <Nav.Link className="d-inline" key={item._id}><NavLink to={`/author/${item._id}`}>{item.name}</NavLink></Nav.Link>
+                        {/* {!user.isAdmin ? <Button onClick={() => deleteUserHandler(user._id)} variant="danger" size="sm" >Delete</Button>:<p className="fw-bold d-inline" >Super Admin</p>} */}
+                    </div>
+                    ))}
+                </Nav>
+                <NavLink className="nav-link" to="/addAuthor">إضافة كاتب</NavLink>
                 <div>
                     <Form className="py-5" id="secretWord" onSubmit={submitSecretWordHandler}>
                         <Form.Group controlId = "secretWord">

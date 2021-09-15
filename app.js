@@ -4,6 +4,7 @@ const connectDB = require("./db");
 const articleRoutes = require("./routes/articleRoutes")
 const usersRoutes = require("./routes/userRoutes")
 const videoRoutes = require("./routes/videoRoutes");
+const authorRoutes = require("./routes/authorRoutes")
 const dotenv = require("dotenv");
 const {notFound, errorHandler} = require("./middlewares/errorMiddleware")
 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use("/api/articles", articleRoutes);
 app.use("/api/users", usersRoutes);
 app.use("/api/videos", videoRoutes);
+app.use("/api/authors",authorRoutes)
 
 if(process.env.NODE_ENV === "production"){
     console.log("production");

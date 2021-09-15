@@ -28,7 +28,7 @@ const SecondNav = ({history, match}) => {
                             <Nav.Item className="px-4 order-md-2"><NavLink className="nav-link" to="/addArticle">إضافة مقالة</NavLink></Nav.Item>
                             <Nav.Item className="px-4 order-md-1"><NavLink className="nav-link" to="/addVideo">إضافة فيديو</NavLink></Nav.Item>
                             <Nav.Item className="px-4 order-md-0"><NavLink className="nav-link" to="#" onClick ={logoutHandler}> خروج </NavLink></Nav.Item>
-                            {userLogin.userInfo.isAdmin && <Nav.Item className="px-4 order-md-0"><NavLink to="/superadmin">SuperAdmin</NavLink></Nav.Item>}
+                            {userLogin.userInfo.isAdmin && <Nav.Item className="px-4 order-md-0 nav-link"><NavLink to="/superadmin">SuperAdmin</NavLink></Nav.Item>}
                             </Nav>
                         ):null}
                     </Nav>

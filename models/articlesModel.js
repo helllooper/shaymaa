@@ -1,4 +1,5 @@
 const User = require("./userModel");
+const Author = require("./authorModel")
 const mongoose = require("mongoose");
 
 const articlesSchema = new mongoose.Schema({
@@ -28,6 +29,7 @@ const articlesSchema = new mongoose.Schema({
 
 articlesSchema.pre('remove', async function(){
     await User.update({}, { $pull: { articles: { $in: this._id } } }, { multi: true });
+    await Author.update({}, { $pull: { articles: { $in: this._id } } }, { multi: true });
 });
 
 module.exports = mongoose.model("Article", articlesSchema);
