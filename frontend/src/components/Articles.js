@@ -20,21 +20,19 @@ const Articles = ({history, match, keyword, pageNumber, setPage, setNoResults}) 
     
     useEffect(() => {
       const setArticlesResults = async () => {
-        if(!articles || previousPageNumber !== pageNumber){
+        if( articleDelete.loading || !articles || previousPageNumber !== pageNumber){
           await dispatch(listArticles(pageNumber,keyword));
         }
         if(setNoResults && articles && articles.length === 0){
           setNoResults(true);
         }
     }
-      if(!articleDelete.loading){
-         setArticlesResults()
-      }
+        setArticlesResults()
     }
      ,[ dispatch,articles, setNoResults, keyword, pageNumber, articleDelete.loading])
     return (
       <>
-      {loading || !articles ? <Loading />:articles.length > 0 ? (
+      {loading || articleDelete.loading || !articles ? <Loading />:articles.length > 0 ? (
         <Container id="articles" className="position-relative">
                 <div>
                   <h1 className="py-5">مقالات</h1>
@@ -43,7 +41,7 @@ const Articles = ({history, match, keyword, pageNumber, setPage, setNoResults}) 
                 </div>
             
         </Container>
-      ):<div id="message" className="position-relative"><Message  variant="danger">عفوا لا توجد مقالات مطابقة للبحث</Message></div>}
+      ):keyword ? <div id="message" className="position-relative"><Message  variant="danger">عفوا لا توجد مقالات مطابقة للبحث</Message></div>:<div id="superAdmin" className="position-relative"><Message variant="danger">لا توجد مقالات بالموقع بعد</Message></div>}
       </>
     )
 }

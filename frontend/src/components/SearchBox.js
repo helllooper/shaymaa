@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Nav } from "react-bootstrap";
 import Message from "./Message";
 
 const SearchBox = ({history, phone}) => {
@@ -15,10 +15,10 @@ const SearchBox = ({history, phone}) => {
     }
 
     return (
-        <Form id="searchBox" className={phone ? "d-flex d-md-none w-75 ms-auto":"d-none d-md-flex mx-md-3 position-absolute start-0"} onSubmit = {submitHandler}>
+        <Form id="searchBox" className={phone ? "d-flex d-lg-none w-75 ms-auto":"d-none d-lg-flex mx-lg-3 position-absolute w-25 start-0"} onSubmit = {submitHandler}>
             <Form.Control type="text" name="q" onChange={e => setKeyword(e.target.value)} placeholder="... بحث" className="mr-sm-2 ml-sm-5"></Form.Control>
             {error && <Message variant="danger">{error}</Message>}
-            <Button type="submit" variant="success" className="p-2 mx-2">بحث</Button>
+            <Nav.Link eventKey="9" as={Button} type="submit" variant="success" className="p-2 mx-2">بحث</Nav.Link>
         </Form>
     )
 }

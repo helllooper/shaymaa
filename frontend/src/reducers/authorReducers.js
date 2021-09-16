@@ -83,7 +83,8 @@ export const latestArticleReducer = (state={}, action) => {
         case constants.LATEST_ARTICLE_SUCCESS:
             return {
                 loading:false,
-                article:action.payload.latestArticle
+                article:action.payload.article,
+                message:action.payload.message
             }
         case constants.LATEST_ARTICLE_FAIL:
             return {
@@ -91,6 +92,54 @@ export const latestArticleReducer = (state={}, action) => {
                 error:action.payload
             }
         case constants.LATEST_ARTICLE_RESET:
+            return {}
+        default:
+            return state;
+    }
+}
+
+export const authorDeleteReducer = (state={}, action) => {
+    switch(action.type){
+        case constants.AUTHOR_DELETE_REQUEST:
+            return{
+                loading:true
+            }
+        case constants.AUTHOR_DELETE_SUCCESS:
+            return {
+                loading:false,
+                success:true
+            }
+        case constants.AUTHOR_DELETE_FAIL:
+            return{
+                loading:false,
+                error:action.payload
+            }
+        default:
+            return state;
+    }
+}
+
+export const authorsArticlesReducer = (state={}, action) => {
+    switch(action.type){
+        case constants.AUTHOR_ARTICLES_REQUEST:
+            return {
+                loading:true
+            }
+        case constants.AUTHOR_ARTICLES_SUCCESS:
+            return {
+                loading:false,
+                name:action.payload.name,
+                articles:action.payload.articles,
+                count:action.payload.count,
+                page:action.payload.page,
+                message:action.payload.message
+            }
+        case constants.AUTHOR_ARTICLES_FAILED:
+            return {
+                loading:false,
+                error:action.payload
+            }
+        case constants.AUTHOR_ARTICLES_RESET:
             return {}
         default:
             return state;

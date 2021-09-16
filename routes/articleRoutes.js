@@ -40,7 +40,7 @@ router.post("/", [
     check("title", "قم بكتابة عنوان المقالة").not().isEmpty(),
     check("brief", "قم بكتابة مقدمة المقالة").not().isEmpty(),
     check("text", "قم بكتابة محتوى المقالة").not().isEmpty(),
-    check("author", "قم بكتابة كاتب المقالة").not().isEmpty(),
+    check("author", "قم باختيار كاتب المقالة").not().isEmpty(),
   ], protect ,asyncHandler(async(req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -63,9 +63,9 @@ router.post("/", [
     })
     const createdArticle = await article.save();
     user.articles.push(createdArticle._id);
-    author.articles.push(createdArticle._id)
+    authorOfArticle.articles.push(createdArticle._id)
     await user.save();
-    await author.save();
+    await authorOfArticle.save();
     res.json(createdArticle);
 }))
 

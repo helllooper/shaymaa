@@ -44,7 +44,7 @@ const Videos = ({history, match, keyword, pageNumber, setPage, setNoResults}) =>
                 </div>
             
         </Container>
-        ):<Message variant="danger">عفوا لا توجد فيديوهات مطابقة لنتيجة البحث</Message>}
+        ):keyword ? <Message variant="danger">عفوا لا توجد فيديوهات مطابقة لنتيجة البحث</Message>:<div id="superAdmin" className="position-relative"><Message variant="danger">لا توجد فيديوهات بالموقع بعد</Message></div>}
         </>
     )
 }

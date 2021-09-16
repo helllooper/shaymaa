@@ -14,7 +14,7 @@ a {
 }
 
 a {
-    transition: all 500ms
+    transition: all 500ms !important
 }
 
 a:hover {
@@ -71,8 +71,8 @@ a:hover {
         height: 71vh;
     }
 
-    #firstNav h1 {
-      font-size: 1.2rem;
+    #firstNav h3 {
+      font-size: 1.2rem !important;
   }
   }
 
@@ -87,8 +87,9 @@ a:hover {
   box-sizing: border-box;
 }
 
-#firstNav h1 {
+#firstNav h3 {
     color:#203198;
+    font-size: 1.6rem ;
 }
 
 #firstNav img {
@@ -98,6 +99,7 @@ a:hover {
 #secondNav {
     z-index: 2;
     top:80px;
+    min-height: 66px;
     background-color: #203198;
 }
 
@@ -505,4 +507,12 @@ input::placeholder {
 
 #searchBox input {
   border: 2px solid #157347
+}
+
+#searchBox button {
+  color: white;
+}
+
+#readMore {
+  background-color: #203198;
 }

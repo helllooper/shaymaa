@@ -77,16 +77,17 @@ router.get("/:id/articles", asyncHandler(async(req, res) => {
     const page = req.query.pageNumber || 1;
     const author = await Author.findById(req.params.id);
     const count = author.articles ? author.articles.length : 0
-    const articles = await Author.findById(req.params.id).populate({path:"articles", select:"title brief date author", options: { sort: {_id:-1}, limit:pageSize, skip:pageSize * (page - 1)}})
-    res.json({articles,count,page:parseInt(page)});
+    const articles = await Author.findById(req.params.id).populate({path:"articles", select:"-text", options: { sort: {_id:-1}, limit:pageSize, skip:pageSize * (page - 1)}})
+    console.log(page);
+    res.json({name:author.name, articles:articles.articles,count, page:parseInt(page)});
 }))
 
 router.get("/:id/latestArticle" , asyncHandler(async(req, res) => {
-    const latestArticle = await Author.findById(req.params.id).populate({path:"articles", select:"title brief date", options: { sort: {_id:-1}, limit:1}})
-    if(latestArticle){
-        res.json(latestArticle);
+    const latestArticle = await Author.findById(req.params.id).populate({path:"articles", select:"-text", options: { sort: {_id:-1}, limit:1}})
+    console.log(latestArticle.articles);
+    if(latestArticle.articles.length !== 0){
+        res.json({article:latestArticle.articles[0]});
     }else {
-        res.status(404)
         res.json({"message":"لا يوجد مقالات للكاتب بعد"})
     }
 }))

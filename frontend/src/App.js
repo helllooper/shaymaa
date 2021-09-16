@@ -19,6 +19,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import AddVideo from "./components/AddVideo";
 import AddAuthor from "./components/AddAuthor";
 import Author from "./components/Author";
+import AuthorsArticles from "./components/AuthorsArticles";
 import SearchResults from "./components/SearchResults";
 import { BrowserRouter as Router, Route} from "react-router-dom";
 
@@ -34,8 +35,9 @@ function App() {
         <Route path="/videos/:pageNumber" render={({history, match}) => (<Videos history={history} match={match} keyword={null}/>)} exact/>
         <Route path="/addArticle" component={AddArticle} exact/>
         <Route path="/addAuthor" component={AddAuthor} exact/>
-        <Route path="/article/:id" component={ArticleDetails}/>
-        <Route path="/author/:id" component={Author}/>
+        <Route path="/article/:id" component={ArticleDetails} exact/>
+        <Route path="/author/:id/:pageNumber" component={AuthorsArticles} exact/>
+        <Route path="/author/:id" component={Author} exact/>
         <Route path="/login" component={Login} exact/>
         <Route path ="/signup" component={Signup} exact/>
         <Route path="/superAdmin" component={SuperAdmin} exact/>

@@ -63,4 +63,65 @@ export const authorDetails = (id) => async dispatch => {
     
 }
 
+export const getLatestArticle = (id) => async dispatch => {
+    try{
+        dispatch({
+            type:constants.LATEST_ARTICLE_REQUEST
+        });
+        const {data} = await axios.get(`/api/authors/${id}/latestArticle`);
+        dispatch({
+            type:constants.LATEST_ARTICLE_SUCCESS,
+            payload:data
+        })
+    } catch(error){
+        dispatch({
+            type:constants.LATEST_ARTICLE_FAIL,
+            payload:error.response && error.response.data.message ? error.response.data.message : error.message
+        })
+    }
+    
+}
+
+export const getAuthorsArticles = (id, pageNumber) => async dispatch => {
+    try{
+        dispatch({
+            type:constants.AUTHOR_ARTICLES_REQUEST
+        });
+        const {data} = await axios.get(`/api/authors/${id}/articles?pageNumber=${pageNumber}`);
+        dispatch({
+            type:constants.AUTHOR_ARTICLES_SUCCESS,
+            payload:data
+        })
+    } catch(error){
+        dispatch({
+            type:constants.AUTHOR_ARTICLES_FAILED,
+            payload:error.response && error.response.data.message ? error.response.data.message : error.message
+        })
+    }
+    
+}
+
+export const deleteAuthor = (id) => async(dispatch, getState) => {
+    try{
+        dispatch({
+            type:constants.AUTHOR_DELETE_REQUEST
+        })
+        const {userLogin:{userInfo}} = getState();
+        const config = {
+            headers:{
+                Authorization:`Bearer ${userInfo.token}`
+            }
+        }
+         await axios.delete(`/api/authors/${id}`, config)
+        dispatch({
+            type:constants.AUTHOR_DELETE_SUCCESS
+        })
+    }catch(error){
+        dispatch({
+            type:constants.AUTHOR_DELETE_FAIL,
+            payload:error.response && error.response.data.message ? error.response.data.message:error.message
+        })
+    }
+}
+
 

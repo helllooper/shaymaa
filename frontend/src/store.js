@@ -4,7 +4,7 @@ import {composeWithDevTools} from "redux-devtools-extension";
 import {articleListReducer, articleCreateReducer, articleDetailsReducer, latestArticlesReducer, articleDeleteReducer, articleUpdateReducer} from "./reducers/articleReducers";
 import { userLoginReducer, userListReducer, getUserReducer, userDeleteReducer } from "./reducers/userReducers";
 import { videoDeleteReducer ,videoUploadReducer, videoListReducer, videoDetailsReducer } from "./reducers/videoReducers"
-import {authorCreateReducer, authorListReducer, authorDetailsReducer, latestArticleReducer} from "./reducers/authorReducers"
+import {authorCreateReducer, authorListReducer, authorDetailsReducer, latestArticleReducer, authorDeleteReducer, authorsArticlesReducer} from "./reducers/authorReducers"
 
 const reducer = combineReducers({
     articleList:articleListReducer,
@@ -25,6 +25,8 @@ const reducer = combineReducers({
     authorList:authorListReducer,
     authorDetails:authorDetailsReducer,
     latestArticle:latestArticleReducer,
+    authorsArticles:authorsArticlesReducer,
+    deleteAuthor:authorDeleteReducer
 })
 
 const userInfoFromStorage = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")):null

@@ -78,6 +78,7 @@ const AddArticle = ({location, history}) => {
                         <Form.Group controlId="formGridState">
                             <Form.Label>الكاتب</Form.Label>
                             <select dir="rtl" value={author} onChange={(e) => setAuthor(e.target.value)}  className="form-select" aria-label="Default select example">
+                            <option>قائمة الكتاب</option>
                             {authors && authors.map(item => <option key={item._id} value={item.name}>{item.name}</option>)}
                             </select>
                         </Form.Group>
