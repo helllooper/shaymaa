@@ -21,6 +21,7 @@ const Videos = ({history, match, keyword, pageNumber, setPage, setNoResults}) =>
     
     useEffect(() => {
         const setVideosResults = async () => {
+            console.log(previousPageNumber !== pageNumber)
             if(!videos || previousPageNumber !== pageNumber){
                 await dispatch(listVideos(pageNumber,keyword));
             }
@@ -28,10 +29,7 @@ const Videos = ({history, match, keyword, pageNumber, setPage, setNoResults}) =>
               setNoResults(true);
             }
         }
-        if(!videoDelete.loading){
-            setVideosResults();
-        }   
-    }
+        setVideosResults();}
      ,[ dispatch, videos,setNoResults, keyword, pageNumber, videoDelete.loading])
     return (
         <>

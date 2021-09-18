@@ -64,10 +64,11 @@ router.post("/youtube",[
         else{
             const uploadVideo = async() => {
                 try{
+                    const modifiedUrl = "http://" + urlWithoutProtocol
                     const video = new Video({
                         title,
                         brief,
-                        url:url
+                        url:modifiedUrl
                      })
                      const createdVideo = await video.save();
                      user.videos.push(createdVideo._id);
@@ -89,6 +90,7 @@ router.post("/youtube",[
 router.get("/", asyncHandler(async (req, res) => {
     const pageSize = 5;
     const page = req.query.pageNumber || 1;
+    console.log(page);
     let count
     let videos
     if(req.query.keyword){

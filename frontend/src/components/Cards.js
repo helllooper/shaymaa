@@ -25,7 +25,7 @@ const Cards = () => {
     return (
         <Container id="cards" className="position-relative py-5" fluid>
             <Row>
-                <Col md={4}>
+                <Col lg={4}>
                     <Card ref={card1}>
                         <Card.Header id="card-header-1">
                             <h2 className="text-center fw-bold py-4">معامل الكربوهيدرات</h2>
@@ -39,7 +39,7 @@ const Cards = () => {
                         </Card.Body>                        
                     </Card>
                 </Col>
-                <Col md={4}>
+                <Col lg={4}>
                     <Card ref={card2}>
                         <Card.Header id="card-header-2">
                             <h2 className="text-center fw-bold py-4">معامل تصحيح الارتفاع</h2>
@@ -53,7 +53,7 @@ const Cards = () => {
                         </Card.Body>                        
                     </Card>
                 </Col>
-                <Col md={4}>
+                <Col lg={4}>
                     <Card ref={card3}>
                         <Card.Header id="card-header-3">
                             <h2 className="text-center fw-bold py-4">معامل الرفع</h2>

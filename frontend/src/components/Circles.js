@@ -24,7 +24,7 @@ const Circles = () => {
         })
      },[])
     return (
-        <Container className="portion1 position-relative" fluid>
+        <Container id="circles" className="portion1 position-relative" fluid>
             <h1 className="text-center fw-bold py-5">ما هي <span className="aim">أهدافنا</span></h1>
             <Row className="align-items-start">
                 <Col ref={col1} id="col1" md={3}>

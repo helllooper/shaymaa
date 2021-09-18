@@ -516,3 +516,12 @@ input::placeholder {
 #readMore {
   background-color: #203198;
 }
+
+#circles button {
+  border : 1px solid #2871CC;
+}
+
+#circles button:hover {
+  background-color: #2871CC;
+  color: white;
+}

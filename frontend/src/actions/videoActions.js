@@ -26,7 +26,8 @@ export const uploadVideo = (video, type, setUploadPercentage) => async(dispatch,
                 Authorization:`Bearer ${userInfo.token}`
             }
         }
-         ({data} = await axios.post("/api/videos/youtube", video, config))
+        console.log(config);
+        ({data} = await axios.post("/api/videos/youtube", video, config))
     }
     dispatch({
         type:constants.VIDEO_UPLOAD_SUCCESS,
@@ -42,11 +43,12 @@ export const uploadVideo = (video, type, setUploadPercentage) => async(dispatch,
 }
 
 export const listVideos = (pageNumber, keyword) => async dispatch => {
+    console.log(pageNumber);
     try{
         dispatch({
             type:constants.VIDEO_LIST_REQUEST
         });
-        const {data} = await axios.get(`/api/videos?pageNumber=${pageNumber}${keyword && "&keyword=" + keyword}`);
+        const {data} = await axios.get(`/api/videos?pageNumber=${pageNumber}${keyword ? "&keyword=" + keyword:""}`);
         dispatch({
             type:constants.VIDEO_LIST_SUCCESS,
             payload:data

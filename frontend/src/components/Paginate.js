@@ -6,7 +6,7 @@ const Paginate = (props) => {
         if(props.setPage) {
            props.setPage(pageNumber);
         } else{
-          props.history.push(`/${props.list}${props.id && "/" + props.id}/${pageNumber}`)
+          props.history.push(`/${props.list}${props.id ? "/" + props.id:""}/${pageNumber}`)
         }
       }
     return (
