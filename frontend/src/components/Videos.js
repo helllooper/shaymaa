@@ -21,7 +21,6 @@ const Videos = ({history, match, keyword, pageNumber, setPage, setNoResults}) =>
     
     useEffect(() => {
         const setVideosResults = async () => {
-            console.log(previousPageNumber !== pageNumber)
             if(!videos || previousPageNumber !== pageNumber){
                 await dispatch(listVideos(pageNumber,keyword));
             }
@@ -42,7 +41,7 @@ const Videos = ({history, match, keyword, pageNumber, setPage, setNoResults}) =>
                 </div>
             
         </Container>
-        ):keyword ? <Message variant="danger">عفوا لا توجد فيديوهات مطابقة لنتيجة البحث</Message>:<div id="superAdmin" className="position-relative"><Message variant="danger">لا توجد فيديوهات بالموقع بعد</Message></div>}
+        ):keyword ?<div id="message" className="position-relative"><Message variant="danger">عفوا لا توجد فيديوهات مطابقة لنتيجة البحث</Message></div>:<div id="superAdmin" className="position-relative"><Message variant="danger">لا توجد فيديوهات بالموقع بعد</Message></div>}
         </>
     )
 }

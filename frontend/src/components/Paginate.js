@@ -10,7 +10,7 @@ const Paginate = (props) => {
         }
       }
     return (
-        <div className="d-flex justify-content-center py-3">
+        <div id="pagination" className="position-relative d-flex justify-content-center py-3">
         <Pagination
           itemClass="page-item"
           linkClass="page-link"

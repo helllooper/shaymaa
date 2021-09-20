@@ -23,6 +23,9 @@ const AddVideo = ({location, history}) => {
         e.preventDefault();
         let data;
         if(type === "cloudinary"){
+            console.log(title);
+            console.log(brief);
+            console.log(video);
             data = new FormData();
             data.append("title", title);
             data.append("brief", brief);

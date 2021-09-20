@@ -6,10 +6,10 @@ const {isAdmin, protect } = require("../middlewares/authMiddleware")
 const multer  = require('multer');
 const path = require("path");
 const {storage, cloudinary} = require("../cloudinary")
-const upload = multer({ fileFilter, storage });
+const upload = multer({ fileFilter,storage });
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
-var validator = require('youtube-validator')
+var validator = require('youtube-validator');
 
 function fileFilter (req, file, cb) {
     const {title, brief} = req.body;
@@ -24,7 +24,7 @@ function fileFilter (req, file, cb) {
     cb(null, true);
   }
   
-router.post("/", protect, upload.single("video"), asyncHandler(async(req, res) => {
+router.post("/",protect ,upload.single("video"), asyncHandler(async(req, res) => {
     if(!req.file){
         throw new Error("لا يوجد ملف فيديو للتحميل")
     }

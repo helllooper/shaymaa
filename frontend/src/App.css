@@ -525,3 +525,7 @@ input::placeholder {
   background-color: #2871CC;
   color: white;
 }
+
+#pagination {
+  z-index:2 ;
+}

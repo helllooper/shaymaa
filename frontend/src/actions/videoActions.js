@@ -19,6 +19,7 @@ export const uploadVideo = (video, type, setUploadPercentage) => async(dispatch,
                setUploadPercentage(parseInt(Math.round((progressEvent.loaded * 100)/progressEvent.total)))
             }
         }
+        console.log(config);
          ({data} = await axios.post("/api/videos", video, config))
     } else if (type === "youtube") {
           config = {

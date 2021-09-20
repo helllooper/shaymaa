@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'video-react/dist/video-react.css';
 import "./App.css"
 import FirstNav from "./components/FirstNav"
 import SecondNav from "./components/SecondNav"

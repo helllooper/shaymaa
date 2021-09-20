@@ -1,15 +1,15 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useState } from 'react';
 import {Row, Col, Button} from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux";
 // import ReactPlayer from 'react-player';
 import {deleteVideo ,videoDetails} from "../actions/videoActions"
-import MyErrorBoundary from './MyErrorBoundary';
 import Loading from "./Loading";
 
 const ReactPlayer = React.lazy(() => import("react-player"))
 
 
 const Video = (props) => {
+    const [loading,setLoading] = useState(true)
     const dispatch = useDispatch();
     const userLogin = useSelector(state => state.userLogin);
     const deleteVideoHandler = () => {
@@ -23,6 +23,8 @@ const Video = (props) => {
     }
 
     return (
+        <>
+        {loading && <Loading />}
         <Row id="article" className="flex-row-reverse py-3">
             <Col xs={12} lg={3}>
                  <h3 className="fw-bold px-0">{props.title}</h3>
@@ -34,13 +36,9 @@ const Video = (props) => {
             <Col xs={12} lg={4}>
              <div id="player-wrapper">
                <Suspense fallback={<p>...Loading</p>}>
-                 <ReactPlayer config={{
-                     file:{
-                        attributes:{
-                            crossorigin:"use-credentials"
-                        }
-                     }
-                 }} className='react-player' width='100%' height='100%' url={props.url} controls={true} />
+                 <ReactPlayer className='react-player' width='100%' height='100%' url={props.url} controls={true} onReady={()=>setLoading(false)}/>
+                 {/* <iframe width="560" height="315" src="https://www.youtube.com/embed/NfC6eXwSJpo?autoplay=0&amp;mute=0&amp;controls=1&amp;origin=http%3A%2F%2Flocalhost%3A3000&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;iv_load_policy=3&amp;modestbranding=1&amp;enablejsapi=1&amp;widgetid=1" id="widget2" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen="1"></iframe> */}
+                 {/* <iframe frameBorder="0" allowFullScreen="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" title="YouTube video player" width="100%" height="100%" src="https://www.youtube.com/embed/NfC6eXwSJpo?autoplay=0&amp;mute=0&amp;controls=1&amp;origin=http%3A%2F%2Flocalhost%3A3000&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;iv_load_policy=3&amp;modestbranding=1&amp;enablejsapi=1&amp;widgetid=1"id="widget2"></iframe> */}
                </Suspense>
              </div>
             </Col>
@@ -50,8 +48,9 @@ const Video = (props) => {
                  <Button id="delete" className="mx-2" variant="danger" onClick={deleteVideoHandler}>Delete</Button>
                 </div>
             ):null}
-         </Row>
-    )
+        </Row>
+        </>
+        )
 }
 
 export default Video
