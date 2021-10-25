@@ -15,6 +15,7 @@ const SearchResults = ({history, match}) => {
     const keyword = history.location.search.split("=")[1];
     const prevKeyword = usePrevious(keyword);
     useEffect(() => {
+      // console.log(noResultsArticles + " === " + noResultsVideos)
          if(keyword !== prevKeyword){
            setNoResultsArticles(false);
            setNoResultsVideos(false);

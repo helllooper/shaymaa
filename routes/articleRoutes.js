@@ -13,27 +13,26 @@ router.get("/", asyncHandler(async (req, res) => {
     const page = req.query.pageNumber || 1;
     let count
     let articles
-    if(req.query.keyword){
-        count = await Article.aggregate().
-        search({
-          text: {
-            query: req.query.keyword,
-            path: ["title", "brief"]
-          }
-        }).count("count");
-        count = count.length > 0 ? count[0].count:0
-        articles = await Article.aggregate().
-        search({
-          text: {
-            query: req.query.keyword,
-            path: ["title", "brief"]
-          }
-        }).sort({_id:-1}).limit(pageSize).skip(pageSize * (page - 1));
+     if(req.query.keyword){
+         const articles = await Article.aggregate([{
+           $search:{
+             "text":{
+               "query":req.query.keyword,
+               "path":["title","brief"]
+             }
+           }
+         },{
+           $group:{
+             _id:null,
+             count:{$sum:1}           }
+         }])
+         console.log({...articles["0"]})
+         res.json({...articles["0"]})
     } else {
         count = await Article.countDocuments({});
         articles = await Article.find({}, "title brief author date").sort({_id:-1}).limit(pageSize).skip(pageSize * (page - 1));
+        res.json({articles,count,page:parseInt(page)});
     }
-    res.json({articles,count,page:parseInt(page)});
 }))
 
 router.post("/", [
