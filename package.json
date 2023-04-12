@@ -22,7 +22,7 @@
   "homepage": "https://github.com/helllooper/shaymaa#readme",
   "dependencies": {
     "@sendgrid/mail": "^7.4.5",
-    "aws-sdk": "^2.975.0",
+    "aws-sdk": "^2.1356.0",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.26.3",
     "express": "^4.17.1",
